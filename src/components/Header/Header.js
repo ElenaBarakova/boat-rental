@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 
+import "./Header.css";
+
 export const Header = () => {
   return (
     <header className="header">
       <nav>
-        {/* <img src="../../../../public/boat-logo.png" className="logo"  /> */}
-        <h1>
-          <Link className="home" to="/">
+        {/* <h1>
+          <Link className="nav-home" to="/">
             Boat Rental
           </Link>
-        </h1>
+        </h1> */}
         <ul>
           <li>
             <Link to="/">Home</Link>
