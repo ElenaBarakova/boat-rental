@@ -22,3 +22,13 @@ export const logout = async (accessToken) => {
     console.log(err);
   }
 };
+
+export const register = (username, email, password) => {
+  return fetch(`${baseUrl}/users/register`, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({ username, email, password }),
+  }).then((res) => res.json());
+};
