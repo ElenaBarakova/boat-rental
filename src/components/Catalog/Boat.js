@@ -1,6 +1,6 @@
 import "./Catalog.css";
 
-export const Boat = ({ boat }) => {
+export const Boat = ({ boat, onDetailsClick }) => {
   return (
     <div className="boat">
       <div className="boat-img">
@@ -16,7 +16,7 @@ export const Boat = ({ boat }) => {
           {boat.type}
         </p>
       </div>
-      <a href="/" className="btn-details">
+      <a href="/details" className="btn-details" onClick={onDetailsClick}>
         Details
       </a>
     </div>

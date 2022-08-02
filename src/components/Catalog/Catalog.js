@@ -5,11 +5,12 @@ import motor from "../../img/Benetti_yacht_for_charter_Formosa_22555.jpg";
 
 import { Boat } from "./Boat";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import * as boatService from "../../services/boatService";
 
 export const Catalog = () => {
   const [boats, setBoats] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     boatService.getAll().then((result) => {
@@ -17,18 +18,32 @@ export const Catalog = () => {
     });
   });
 
+  const detailsClickHandler = (e) => {
+    e.preventDefault();
+    navigate("/details");
+  };
+
   return (
     <section className="catalog">
       <h1>
         <span>BOATS FOR RENT</span>
       </h1>
 
-      <div className="offer-list">
-        {boats.map((x) => {
-          return <Boat boat={x} />;
-        })}
+      {boats.length > 0 ? (
+        boats.map((x) => {
+          return (
+            <div className="offer-list">
+              <Boat key={x._id} boat={x} onDetailsClick={detailsClickHandler} />
+            </div>
+          );
+        })
+      ) : (
+        <div className="no-offer">
+          <p>There are no boats to rent at the moment!</p>
+        </div>
+      )}
 
-        <div className="boat">
+      {/* <div className="boat">
           <div className="boat-img">
             <img src={catamaran} alt=" " />
           </div>
@@ -41,7 +56,11 @@ export const Catalog = () => {
               <span>Type of boat: </span>Catamaran
             </p>
           </div>
-          <a href="/details" className="btn-details">
+          <a
+            href="/details"
+            className="btn-details"
+            onClick={detailsClickHandler}
+          >
             Details
           </a>
         </div>
@@ -80,11 +99,7 @@ export const Catalog = () => {
           <a href="/" className="btn-details">
             Details
           </a>
-        </div>
-      </div>
-      {/* <div class="no-offer">
-                <p>There are no crypto offers found!</p>
-            </div> */}
+        </div>*/}
     </section>
   );
 };
