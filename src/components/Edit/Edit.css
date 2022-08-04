@@ -1,0 +1,121 @@
+main {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#create-container {
+  color: rgb(61, 106, 120);
+  width: 420px;
+  height: auto;
+  margin: auto;
+  background-color: rgba(240, 248, 255, 0.6);
+  border: 2px solid white;
+  border-radius: 20px;
+}
+
+#create-container h1 {
+  text-align: center;
+  padding-top: 15px;
+  color: rgb(61, 106, 120);
+  font-weight: bolder;
+}
+
+#create-container h4 {
+  margin-top: 10px;
+  text-align: center;
+  color: rgb(61, 106, 120);
+}
+
+#create-container form {
+  width: 360px;
+  margin-left: 20px;
+}
+
+#create-container form label {
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+#create-container form input {
+  width: 380px;
+  height: 30px;
+  padding-left: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 8px;
+  outline: none;
+  background-color: whitesmoke;
+}
+
+#create-container input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#create-container input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#create-container form textarea {
+  width: 380px;
+  height: 60px;
+  padding-left: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 8px;
+  outline: none;
+  background-color: whitesmoke;
+  resize: none;
+}
+
+#create-container select {
+  outline: 0;
+  border: 0;
+  box-shadow: none;
+  flex: 1;
+  padding: 0 1em;
+  cursor: pointer;
+  height: 20px;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 380px;
+  color: rgb(61, 106, 120);
+  background-color: whitesmoke;
+}
+
+#create-container input[type="submit"] {
+  /* width: 320px;
+  height: 35px;
+  margin-top: 20px;
+  border: none;
+  background-color: #49c1a2;
+  color: white;
+  font-size: 15px;
+  margin-bottom: 30px; */
+
+  position: relative;
+  border: 5em;
+  cursor: pointer;
+  outline: none;
+  font-size: 16px;
+  /* -webkit-transform: translate(0);
+  transform: translate(0); */
+  background-image: linear-gradient(45deg, #3798b5, #9ae4ff);
+  padding: 0.8em 2em;
+  border-radius: 65px;
+  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
+  -webkit-transition: box-shadow 0.25s;
+  transition: box-shadow 0.25s;
+  color: white;
+  width: 380px;
+  height: 40px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-decoration: none;
+}
+
+#create-container input[type="submit"]:hover {
+  box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
+}

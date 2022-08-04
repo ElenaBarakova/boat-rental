@@ -1,34 +1,52 @@
 import "./Details.css";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import * as boatService from "../../services/boatService";
 
-export const Details = () => {
+export const Details = ({ boat }) => {
+  const [currentBoat, setCurrentBoat] = useState({});
+  const { boatId } = useParams();
+
+  useEffect(() => {
+    boatService.getOne(boatId).then((boatData) => {
+      setCurrentBoat(boatData);
+    });
+  });
+
   return (
-    <section id="details-info">
+    <section className="details-info">
       <h1>Details</h1>
-      <div className="coin-image">
-        <img src="./static/images/bitcoin.png" alt=" " />
+      <div className="boat-img">
+        <img src={currentBoat.image} alt=" " />
       </div>
-      <div className="coin-info">
-        <div className="coin-text">
-          <h1 id="name">Bitcoin</h1>
-          <h3 id="payment">Payment method: paypal</h3>
+      <div className="boat-info">
+        <div className="boat-text">
+          <h1 id="name">Name: {currentBoat.name}</h1>
+
+          <p id="type">Boat type: {currentBoat.type}</p>
+          <p id="capacity">Capacity: {currentBoat.capacity} persons</p>
+          <p id="location">Location: {currentBoat.location}</p>
+
           <p id="price">
-            <span>Price: $31 166.71</span>
+            <span>Price: ${currentBoat.price}</span>
           </p>
-          <p id="description">
-            Bitcoin is a decentralized digital currency that can be transferred
-            on the peer-to-peer bitcoin network.
-          </p>
+          <p id="description">Additional information:</p>
+          <p id="description">{currentBoat.description}</p>
         </div>
         <div className="product-btn">
           {/*Only for registered user and author of the publication */}
-          {/* <div class="author">
-                        <a href="#" class="btn-edit">Edit</a>
-                        <a href="#" class="btn-delete">Delete</a>
-                    </div> */}
-          {/* Logged in user who has not yet buy this crypto*/}
-          {/* <a href="#" class="btn-buy">Buy</a> */}
-          {/* Logged in user who has already buy this crypto*/}
-          <p className="buy-message">You already bought these crypto coins.</p>
+          <div class="author">
+            <Link to={`/details/${boatId}/edit`} className="btn-edit">
+              EDIT
+            </Link>
+            <Link to={`/details/${boatId}/delete`} className="btn-delete">
+              DELETE
+            </Link>
+          </div>
+          <Link to={`/details/${boatId}/delete`} className="btn-get-quote">
+            GET A QUOTE
+          </Link>
         </div>
       </div>
     </section>

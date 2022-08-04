@@ -1,27 +1,24 @@
 import "./Catalog.css";
 
-import catamaran from "../../img/catamaran.jpg";
-import motor from "../../img/Benetti_yacht_for_charter_Formosa_22555.jpg";
+// import catamaran from "../../img/catamaran.jpg";
+// import motor from "../../img/Benetti_yacht_for_charter_Formosa_22555.jpg";
 
 import { Boat } from "./Boat";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import * as boatService from "../../services/boatService";
 
 export const Catalog = () => {
   const [boats, setBoats] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    boatService.getAll().then((result) => {
-      setBoats(result);
-    });
-  });
-
-  const detailsClickHandler = (e) => {
-    e.preventDefault();
-    navigate("/details");
-  };
+    try {
+      boatService.getAll().then((result) => {
+        setBoats(result);
+      });
+    } catch (err) {
+      return console.log(err);
+    }
+  }, []);
 
   return (
     <section className="catalog">
@@ -30,11 +27,11 @@ export const Catalog = () => {
       </h1>
 
       {boats.length > 0 ? (
-        boats.map((x) => {
+        boats?.map((x) => {
           return (
-            <div className="offer-list">
-              <Boat key={x._id} boat={x} onDetailsClick={detailsClickHandler} />
-            </div>
+            //<div className="offer-list" >
+            <Boat boat={x} key={x._id} />
+            //</div>
           );
         })
       ) : (

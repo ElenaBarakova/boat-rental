@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import "./Catalog.css";
 
-export const Boat = ({ boat, onDetailsClick }) => {
+export const Boat = ({ boat }) => {
   return (
     <div className="boat">
       <div className="boat-img">
-        <img src={boat.imageUrl} alt=" " />
+        <img src={boat.image} alt=" " />
       </div>
       <div className="boat-info">
         <h1>{boat.name}</h1>
@@ -16,9 +17,9 @@ export const Boat = ({ boat, onDetailsClick }) => {
           {boat.type}
         </p>
       </div>
-      <a href="/details" className="btn-details" onClick={onDetailsClick}>
+      <Link to={`/details/${boat._id}`} className="btn-details">
         Details
-      </a>
+      </Link>
     </div>
   );
 };

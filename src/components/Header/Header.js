@@ -26,11 +26,18 @@ export const Header = () => {
                 <Link to="/create">Create Listing</Link>
               </li>
               <li>
-                <Link to="/logout">Logout</Link>
+                <Link to="/my-profile">My Profile</Link>
               </li>
               <li>
-                <p className="hello">Hello, {`${auth.username}`}!</p>
+                <Link to="/logout">Logout</Link>
               </li>
+              <div className="image-rounded-li">
+                <img
+                  src="https://lasu.edu.ng/home/img/avatar_circle_blue.png"
+                  alt="https://lasu.edu.ng/home/img/avatar_circle_blue.png"
+                  className="rounded-circle"
+                />
+              </div>
             </>
           ) : (
             <>

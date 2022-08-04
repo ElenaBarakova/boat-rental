@@ -1,23 +1,34 @@
-import "./Create.css";
+import "./Edit.css";
 
-import * as boatService from "../../services/boatService";
 import { AuthContext } from "../../contexts/AuthContext";
-import { BoatContext } from "../../contexts/BoatContext";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Create = () => {
+import { BoatContext } from "../../contexts/BoatContext";
+import * as boatService from "../../services/boatService";
+
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+export const Edit = () => {
+  const [currentBoat, setCurrentBoat] = useState({});
   const { auth } = useContext(AuthContext);
   const { createBoatListingHandler } = useContext(BoatContext);
+  const { boatId } = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    boatService.getOne(boatId).then((boatData) => {
+      setCurrentBoat(boatData);
+    });
+  });
 
   const onSubmit = (e) => {
     e.preventDefault();
     const boatData = Object.fromEntries(new FormData(e.target));
-    boatService.create(boatData, auth.accessToken).then((result) => {
+    boatService.edit(boatData, boatId, auth.accessToken).then((result) => {
       createBoatListingHandler(result);
     });
-    navigate("/catalog");
+    navigate(`/details/${boatId}`);
     console.log(boatData);
   };
 
@@ -30,17 +41,21 @@ export const Create = () => {
         </div> */}
       <section id="create-container">
         <div className="create-container-info">
-          <h1>Create Listing</h1>
-          <h4>Post your boat for rent</h4>
+          <h1>Edit Listing</h1>
           <form method="POST" onSubmit={onSubmit}>
             <label>Name:</label>
-            <input type="text" id="name" name="name" placeholder="Boat" />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              defaultValue={currentBoat.name}
+            />
             <label>Image:</label>
             <input
               type="text"
               id="image"
               name="image"
-              placeholder="http://..."
+              defaultValue={currentBoat.image}
             />
 
             <label>Boat type:</label>
@@ -56,7 +71,7 @@ export const Create = () => {
               type="number"
               id="capacity"
               name="capacity"
-              placeholder="4 persons"
+              defaultValue={currentBoat.capacity}
             />
 
             <label>Location:</label>
@@ -64,25 +79,24 @@ export const Create = () => {
               type="text"
               id="location"
               name="location"
-              placeholder="Lefcada Island"
+              defaultValue={currentBoat.location}
             />
             <label>Price per day:</label>
             <input
               type="number"
               id="price"
               name="price"
-              placeholder="$1000.00"
+              defaultValue={currentBoat.price}
             />
 
             <label>Additional information:</label>
             <textarea
               id="description"
               name="description"
-              placeholder="Add info..."
-              defaultValue={""}
+              defaultValue={currentBoat.description}
             />
 
-            <input type="submit" id="btn" value={`CREATE`} />
+            <input type="submit" id="btn" value={`Save`} />
           </form>
         </div>
       </section>
