@@ -8,6 +8,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 export const Details = ({ boat }) => {
   const [currentBoat, setCurrentBoat] = useState({});
+
   const { auth } = useContext(AuthContext);
   const { boatId } = useParams();
   const navigate = useNavigate();
@@ -56,25 +57,66 @@ export const Details = ({ boat }) => {
               >
                 EDIT
               </Link>
-              <button
-                type="button"
-                className="btn-delete btn-lg btn-hover"
-                data-toggle="modal"
-                data-target="#myModal"
-              >
-                DELETE
+              <button>
+                type="button" className="btn-delete btn-lg btn-hover"
+                data-toggle="modal" data-target="#deleteModal" > DELETE
               </button>
             </div>
           ) : (
-            <Link
-              to={`/details/${boatId}/delete`}
-              className="btn-get-quote btn-hover"
+            <button
+              type="button"
+              className="btn-get-quote btn-lg btn-hover"
+              data-toggle="modal"
+              data-target="#deleteModal"
             >
               GET A QUOTE
-            </Link>
+            </button>
           )}
+
           {/* <!-- Modal --> */}
-          <div id="myModal" className="modal fade" role="dialog">
+          <div id="deleteModal" className="modal fade" role="dialog">
+            <div className="modal-dialog">
+              {/* <!-- Modal content--> */}
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                  <h4 className="modal-title">Choose dates</h4>
+                </div>
+                <div className="modal-body">
+                  <div className="calendar">
+                    <label htmlFor="start">Start date:</label>
+                    <input type="date" id="start" name="quote-start" />
+                  </div>
+                  <div className="calendar">
+                    <label htmlFor="end">End date:</label>
+                    <input type="date" id="end" name="quote-end" />
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-default btn-hover"
+                    data-dismiss="modal"
+                    onClick={deleteHandler}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-default btn-hover"
+                    data-dismiss="modal"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* <!-- Modal --> */}
+          <div id="quoteModal" className="modal fade" role="dialog">
             <div className="modal-dialog">
               {/* <!-- Modal content--> */}
               <div className="modal-content">

@@ -39,7 +39,7 @@ export const Login = () => {
     <div className="login-box">
       <h1>Login</h1>
       {errorMessage && (
-        <div class="alert alert-danger text-center" role="alert">
+        <div className="alert alert-danger text-center" role="alert">
           {errorMessage}
         </div>
       )}

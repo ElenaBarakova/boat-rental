@@ -6,3 +6,5 @@ export const checkUrl = (url) => url.startsWith("http");
 
 export const checkEmail = (mail) =>
   /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+
+export const checkEqualValues = (value1, value2) => value1 === value2;

@@ -36,7 +36,7 @@ export const Create = () => {
     }));
   };
 
-  const removeValidationErrors = (key, value) => {
+  const removeValidationErrors = (key) => {
     setValidationErrors((currentErrors) => {
       const { [key]: value, ...rest } = currentErrors;
       return rest;
@@ -70,10 +70,7 @@ export const Create = () => {
           "Name should be between 3 and 12 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.name,
-          "Name should be between 3 and 12 chars"
-        );
+        removeValidationErrors(formFields.name);
       }
     }
 
@@ -81,7 +78,7 @@ export const Create = () => {
       if (!isImageValid) {
         addToValidationErrors(formFields.image, "Invalid image URL");
       } else {
-        removeValidationErrors(formFields.image, "Invalid image URL");
+        removeValidationErrors(formFields.image);
       }
     }
 
@@ -92,10 +89,7 @@ export const Create = () => {
           "Capacity should be between 1 and 2 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.capacity,
-          "Capacity should be between 1 and 2 chars"
-        );
+        removeValidationErrors(formFields.capacity);
       }
     }
 
@@ -106,10 +100,7 @@ export const Create = () => {
           "Location should be less than 30 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.location,
-          "Location should be less than 30 chars"
-        );
+        removeValidationErrors(formFields.location);
       }
     }
 
@@ -120,10 +111,7 @@ export const Create = () => {
           "Price should be at least 1 char"
         );
       } else {
-        removeValidationErrors(
-          formFields.price,
-          "Price should be at least 1 char"
-        );
+        removeValidationErrors(formFields.price);
       }
     }
 
@@ -134,10 +122,7 @@ export const Create = () => {
           "Additional information should be less than 200 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.description,
-          "Additional information should be less than 200 chars"
-        );
+        removeValidationErrors(formFields.description);
       }
     }
   };

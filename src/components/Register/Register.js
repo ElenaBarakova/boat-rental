@@ -9,33 +9,53 @@ import {
   checkEmail,
   checkMaxLength,
   checkMinLength,
+  checkEqualValues,
 } from "../../services/validationService";
-import { formFields } from "../../constants/constants";
+
+const formFields = {
+  username: "username",
+  email: "email",
+  password: "password",
+  confirmPassword: "confirmPassword",
+};
 
 export const Register = () => {
-  const { authLogin } = useContext(AuthContext);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
+  const { authLogin } = useContext(AuthContext);
   const formRef = useRef();
   const navigate = useNavigate();
 
+  const isValidationErrorsEmpty = !Object.values(validationErrors).length;
+  const areAllFormFieldsFilled = Object.values(formFields).every(
+    (inputName) => formRef.current?.[inputName].value
+  );
+
   const onSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData(formRef.current);
 
-    const formData = new FormData(e.target);
-    const username = formData.get("username");
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const confirmPassword = formData.get("confirm-password");
+    const username = formData.get(formFields.username);
+    const email = formData.get(formFields.email);
+    const password = formData.get(formFields.password);
 
-    if (password !== confirmPassword) {
-      console.log("error");
-      return;
-    }
-
-    authService.register(username, email, password).then((authData) => {
-      authLogin(authData);
-      navigate("/");
-    });
+    authService
+      .register(username, email, password)
+      .then((authResponse) => {
+        if (
+          authResponse.code >= 400 &&
+          authResponse.code <= 500 &&
+          authResponse?.message
+        ) {
+          setErrorMessage(authResponse.message);
+        } else {
+          authLogin(authResponse);
+          navigate("/");
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(err);
+      });
   };
 
   const addToValidationErrors = (key, value) => {
@@ -45,7 +65,7 @@ export const Register = () => {
     }));
   };
 
-  const removeValidationErrors = (key, value) => {
+  const removeValidationErrors = (key) => {
     setValidationErrors((currentErrors) => {
       const { [key]: value, ...rest } = currentErrors;
       return rest;
@@ -66,7 +86,9 @@ export const Register = () => {
 
     const confirmPassword = formRef.current?.confirmPassword.value;
     const isConfirmPasswordValid =
-      checkMaxLength(confirmPassword, 12) && checkMinLength(confirmPassword, 5);
+      checkMaxLength(confirmPassword, 12) &&
+      checkMinLength(confirmPassword, 5) &&
+      checkEqualValues(password, confirmPassword);
 
     if (keyName === formFields.username) {
       if (!isUsernameValid) {
@@ -75,10 +97,7 @@ export const Register = () => {
           "Username should be between 3 and 10 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.username,
-          "Username should be between 3 and 10 chars"
-        );
+        removeValidationErrors(formFields.username);
       }
     }
 
@@ -86,7 +105,7 @@ export const Register = () => {
       if (!isEmailValid) {
         addToValidationErrors(formFields.email, "Invalid email");
       } else {
-        removeValidationErrors(formFields.email, "Invalid email");
+        removeValidationErrors(formFields.email);
       }
     }
 
@@ -97,10 +116,7 @@ export const Register = () => {
           "Password should be between 5 and 12 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.password,
-          "Password should be between 5 and 12 chars"
-        );
+        removeValidationErrors(formFields.password);
       }
     }
 
@@ -108,18 +124,10 @@ export const Register = () => {
       if (!isConfirmPasswordValid) {
         addToValidationErrors(
           formFields.confirmPassword,
-          "Password should be between 5 and 12 chars"
-        );
-      } else if (password !== confirmPassword) {
-        addToValidationErrors(
-          formFields.confirmPassword,
-          "Passwords missmatch"
+          "Confirm password should match password and be between 5 and 12 chars"
         );
       } else {
-        setValidationErrors((currentErrors) => {
-          const { confirmPassword, ...rest } = currentErrors;
-          return rest;
-        });
+        removeValidationErrors(formFields.confirmPassword);
       }
     }
   };
@@ -128,6 +136,11 @@ export const Register = () => {
     <div className="register-box">
       <h1>Register</h1>
       <h4>It's free and only take a minute</h4>
+      {errorMessage && (
+        <div className="alert alert-danger text-center" role="alert">
+          {errorMessage}
+        </div>
+      )}
       <form method="POST" onSubmit={onSubmit} ref={formRef}>
         <label htmlFor="username">Username</label>
         <div className="form-group">
@@ -208,7 +221,9 @@ export const Register = () => {
           type="submit"
           value="REGISTER"
           className="btn-hover"
-          //disabled={validationErrors ? "disabled" : " "}
+          disabled={
+            isValidationErrorsEmpty && areAllFormFieldsFilled ? false : true
+          }
         />
       </form>
       <p>

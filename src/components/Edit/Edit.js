@@ -9,7 +9,6 @@ import {
   checkMaxLength,
   checkMinLength,
   checkUrl,
-  checkEmail,
 } from "../../services/validationService";
 import { BoatContext } from "../../contexts/BoatContext";
 import * as boatService from "../../services/boatService";
@@ -53,12 +52,11 @@ export const Edit = () => {
     console.log(validationErrors);
   };
 
-  const removeValidationErrors = (key, value) => {
+  const removeValidationErrors = (key) => {
     setValidationErrors((currentErrors) => {
       const { [key]: value, ...rest } = currentErrors;
       return rest;
     });
-    console.log(validationErrors);
   };
 
   const blurHandler = (keyName) => {
@@ -88,10 +86,7 @@ export const Edit = () => {
           "Name should be between 3 and 12 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.name,
-          "Name should be between 3 and 12 chars"
-        );
+        removeValidationErrors(formFields.name);
       }
     }
 
@@ -99,7 +94,7 @@ export const Edit = () => {
       if (!isImageValid) {
         addToValidationErrors(formFields.image, "Invalid image URL");
       } else {
-        removeValidationErrors(formFields.image, "Invalid image URL");
+        removeValidationErrors(formFields.image);
       }
     }
 
@@ -110,10 +105,7 @@ export const Edit = () => {
           "Capacity should be between 1 and 2 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.capacity,
-          "Capacity should be between 1 and 2 chars"
-        );
+        removeValidationErrors(formFields.capacity);
       }
     }
 
@@ -124,10 +116,7 @@ export const Edit = () => {
           "Location should be less than 30 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.location,
-          "Location should be less than 30 chars"
-        );
+        removeValidationErrors(formFields.location);
       }
     }
 
@@ -138,10 +127,7 @@ export const Edit = () => {
           "Price should be at least 1 char"
         );
       } else {
-        removeValidationErrors(
-          formFields.price,
-          "Price should be at least 1 char"
-        );
+        removeValidationErrors(formFields.price);
       }
     }
 
@@ -152,10 +138,7 @@ export const Edit = () => {
           "Additional information should be less than 200 chars"
         );
       } else {
-        removeValidationErrors(
-          formFields.description,
-          "Additional information should be less than 200 chars"
-        );
+        removeValidationErrors(formFields.description);
       }
     }
   };
@@ -307,7 +290,6 @@ export const Edit = () => {
               id="btn"
               // disabled={validationErrors ? "disabled" : " "}
               value={`SAVE`}
-              disabled={true}
             />
           </form>
         </div>

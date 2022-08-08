@@ -147,6 +147,17 @@ main {
 }
 
 .modal-body {
-  font-size: 22px;
+  font-size: 18px;
   text-align: center;
+}
+
+.calendar {
+  display: inline-block;
+  padding: 0 40px;
+}
+
+.calendar label,
+.calendar input {
+  display: block;
+  text-align: left;
 }
