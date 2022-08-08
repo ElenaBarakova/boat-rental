@@ -11,13 +11,14 @@ export const Catalog = () => {
   const [boats, setBoats] = useState([]);
 
   useEffect(() => {
-    try {
-      boatService.getAll().then((result) => {
+    boatService
+      .getAll()
+      .then((result) => {
         setBoats(result);
+      })
+      .catch(() => {
+        setBoats([]);
       });
-    } catch (err) {
-      return console.log(err);
-    }
   }, []);
 
   return (

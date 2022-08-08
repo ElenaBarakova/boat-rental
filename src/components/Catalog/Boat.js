@@ -17,8 +17,8 @@ export const Boat = ({ boat }) => {
           {boat.type}
         </p>
       </div>
-      <Link to={`/details/${boat._id}`} className="btn-details">
-        Details
+      <Link to={`/details/${boat._id}`} className="btn-details btn-hover">
+        DETAILS
       </Link>
     </div>
   );

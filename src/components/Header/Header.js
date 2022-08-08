@@ -31,13 +31,13 @@ export const Header = () => {
               <li>
                 <Link to="/logout">Logout</Link>
               </li>
-              <div className="image-rounded-li">
+              {/* <div className="image-rounded-li">
                 <img
                   src="https://lasu.edu.ng/home/img/avatar_circle_blue.png"
                   alt="https://lasu.edu.ng/home/img/avatar_circle_blue.png"
                   className="rounded-circle"
                 />
-              </div>
+              </div> */}
             </>
           ) : (
             <>

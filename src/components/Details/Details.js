@@ -1,18 +1,29 @@
 import "./Details.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as boatService from "../../services/boatService";
+import { useContext } from "react";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const Details = ({ boat }) => {
   const [currentBoat, setCurrentBoat] = useState({});
+  const { auth } = useContext(AuthContext);
   const { boatId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     boatService.getOne(boatId).then((boatData) => {
       setCurrentBoat(boatData);
     });
-  });
+  }, [boatId]);
+
+  const deleteHandler = () => {
+    boatService.del(boatId, auth.accessToken);
+    navigate("/catalog");
+  };
+
+  const isOwner = currentBoat._ownerId === auth._id;
 
   return (
     <section className="details-info">
@@ -36,17 +47,69 @@ export const Details = ({ boat }) => {
         </div>
         <div className="product-btn">
           {/*Only for registered user and author of the publication */}
-          <div class="author">
-            <Link to={`/details/${boatId}/edit`} className="btn-edit">
-              EDIT
+
+          {isOwner ? (
+            <div className="author">
+              <Link
+                to={`/details/${boatId}/edit`}
+                className="btn-edit btn-hover"
+              >
+                EDIT
+              </Link>
+              <button
+                type="button"
+                className="btn-delete btn-lg btn-hover"
+                data-toggle="modal"
+                data-target="#myModal"
+              >
+                DELETE
+              </button>
+            </div>
+          ) : (
+            <Link
+              to={`/details/${boatId}/delete`}
+              className="btn-get-quote btn-hover"
+            >
+              GET A QUOTE
             </Link>
-            <Link to={`/details/${boatId}/delete`} className="btn-delete">
-              DELETE
-            </Link>
+          )}
+          {/* <!-- Modal --> */}
+          <div id="myModal" className="modal fade" role="dialog">
+            <div className="modal-dialog">
+              {/* <!-- Modal content--> */}
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button type="button" className="close" data-dismiss="modal">
+                    &times;
+                  </button>
+                  <h4 className="modal-title">Delete Listing</h4>
+                </div>
+                <div className="modal-body">
+                  <p>
+                    Are you sure you want to delete {currentBoat.type}:{" "}
+                    {currentBoat.name}
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-default btn-hover"
+                    data-dismiss="modal"
+                    onClick={deleteHandler}
+                  >
+                    Delete
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-default btn-hover"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <Link to={`/details/${boatId}/delete`} className="btn-get-quote">
-            GET A QUOTE
-          </Link>
         </div>
       </div>
     </section>

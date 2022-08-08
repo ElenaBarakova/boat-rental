@@ -1,7 +1,12 @@
 const baseUrl = "http://localhost:3030/data/boats";
 
 export const getAll = () => {
-  return fetch(baseUrl).then((res) => res.json());
+  return fetch(baseUrl).then((res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    throw new Error("Something went wrong");
+  });
 };
 
 export const getOne = (boatId) => {
