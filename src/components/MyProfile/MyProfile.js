@@ -1,33 +1,70 @@
 import "./MyProfile.css";
 
-import * as boatService from "../../services/boatService";
+import * as quoteService from "../../services/quoteService";
 import { AuthContext } from "../../contexts/AuthContext";
-import { BoatContext } from "../../contexts/BoatContext";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { ReceivedTableRow } from "../Table/ReceivedTableRow";
+import { SentTableRow } from "../Table/SentTableRow";
+import { EmptyTableRow } from "../Table/EmptyTableRow";
+
+import { useContext, useState, useEffect } from "react";
+
+const reject = "Rejected";
+const accept = "Accepted";
 
 export const MyProfile = () => {
   const { auth } = useContext(AuthContext);
-  const { createBoatListingHandler } = useContext(BoatContext);
-  const navigate = useNavigate();
+  const [sentQuotes, setSentQuotes] = useState([]);
+  const [receivedQuotes, setReceivedQuotes] = useState([]);
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const boatData = Object.fromEntries(new FormData(e.target));
-    boatService.create(boatData, auth.accessToken).then((result) => {
-      createBoatListingHandler(result);
-    });
-    navigate("/catalog");
-    console.log(boatData);
+  useEffect(() => {
+    quoteService
+      .getAll()
+      .then((result) => {
+        const sentQuotes = result.filter((quote) => quote.userId === auth._id);
+        const receivedQuotes = result.filter(
+          (quote) => quote._ownerId !== auth._id
+        );
+        setSentQuotes(sentQuotes);
+        setReceivedQuotes(receivedQuotes);
+      })
+      .catch(() => {
+        setSentQuotes([]);
+        setReceivedQuotes([]);
+      });
+  }, [auth._id]);
+
+  // quotesArray - we pass quotesArray because the function is
+  // generic and it needs to know which array it should manipulate - MY QUOTES or the RECEIVED quotes.
+  // When calling this function we will have this information, so we will just pass it to the function
+  const changeStatusHandler = (
+    quotes,
+    setQuotesFn,
+    currentQuoteData,
+    statusChange
+  ) => {
+    quoteService
+      .statusChange(currentQuoteData, statusChange, auth.accessToken)
+      .then((result) => {
+        const foundQuote = quotes.find((quote) => quote._id === result._id);
+        const foundQuoteIndex = quotes.findIndex(
+          (quote) => quote._id === result._id
+        );
+        console.log(result);
+
+        foundQuote.status = result.status;
+        setQuotesFn((quotes) => [
+          ...quotes.slice(0, foundQuoteIndex),
+          foundQuote,
+          ...quotes.slice(foundQuoteIndex + 1),
+        ]);
+      })
+      .catch(() => {
+        console.log("error");
+      });
   };
 
   return (
     <>
-      {/* <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div> */}
       <section id="profile-container">
         <h1>My Profile</h1>
 
@@ -40,7 +77,6 @@ export const MyProfile = () => {
         <table className="table">
           <thead>
             <tr>
-              {/* <th scope="col">#</th> */}
               <th scope="col">Boat Name</th>
               <th scope="col">Boat Type</th>
               <th scope="col">Start date</th>
@@ -51,30 +87,26 @@ export const MyProfile = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {/* <th scope="row">1</th> */}
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>01.08.22</td>
-              <td>10.08.22</td>
-              <td>abv@abv.bg</td>
-              <td>Pending </td>
-              <td className="btns">
-                <button className="btn-reject">&#10006;</button>
-              </td>
-            </tr>
-            <tr>
-              {/* <th scope="row">1</th> */}
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>01.08.22</td>
-              <td>10.08.22</td>
-              <td>abv@abv.bg</td>
-              <td>Pending </td>
-              <td className="btns">
-                <button className="btn-reject">&#10006;</button>
-              </td>
-            </tr>
+            {sentQuotes.length > 0 ? (
+              sentQuotes?.map((quote) => {
+                return (
+                  <SentTableRow
+                    quote={quote}
+                    key={quote._id}
+                    onReject={() =>
+                      changeStatusHandler(
+                        sentQuotes,
+                        setSentQuotes,
+                        quote,
+                        reject
+                      )
+                    }
+                  />
+                );
+              })
+            ) : (
+              <EmptyTableRow />
+            )}
           </tbody>
         </table>
 
@@ -82,7 +114,6 @@ export const MyProfile = () => {
         <table className="table">
           <thead>
             <tr>
-              {/* <th scope="col">#</th> */}
               <th scope="col">Boat Name</th>
               <th scope="col">Boat Type</th>
               <th scope="col">Start date</th>
@@ -93,40 +124,37 @@ export const MyProfile = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              {/* <th scope="row">1</th> */}
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>01.08.22</td>
-              <td>10.08.22</td>
-              <td>abv@abv.bg</td>
-              <td>Pending</td>
-              <td className="btns">
-                <button className="btn-accept">&#10004;</button>
-                <button className="btn-reject">&#10006;</button>
-              </td>
-            </tr>
-            <tr>
-              {/* <th scope="row">1</th> */}
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>01.08.22</td>
-              <td>10.08.22</td>
-              <td>abv@abv.bg</td>
-              <td>Pending</td>
-              <td className="btns">
-                <button className="btn-accept">&#10004;</button>
-                <button className="btn-reject">&#10006;</button>
-              </td>
-            </tr>
+            {receivedQuotes.length > 0 ? (
+              receivedQuotes.map((quote) => {
+                return (
+                  <ReceivedTableRow
+                    quote={quote}
+                    key={quote._id}
+                    onReject={() =>
+                      changeStatusHandler(
+                        receivedQuotes,
+                        setReceivedQuotes,
+                        quote,
+                        reject
+                      )
+                    }
+                    onAccept={() =>
+                      changeStatusHandler(
+                        receivedQuotes,
+                        setReceivedQuotes,
+                        quote,
+                        accept
+                      )
+                    }
+                  />
+                );
+              })
+            ) : (
+              <EmptyTableRow />
+            )}
           </tbody>
         </table>
       </section>
-      {/* <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div> */}
     </>
   );
 };

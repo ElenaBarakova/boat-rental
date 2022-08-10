@@ -29,16 +29,21 @@ export const Home = () => {
         BOOK YOUR BOAT
       </Link>
 
-      <h2 className="title">Latest Listings</h2>
-      <div className="boat-list">
-        {boats?.map((x) => {
-          return (
-            //<div className="offer-list" >
-            <CardHome boat={x} key={x._id} />
-            //</div>
-          );
-        })}
-      </div>
+      {boats.length > 0 && (
+        <>
+          <h2 className="title">Latest Listings</h2>
+
+          <div className="boat-list">
+            {boats?.map((x) => {
+              return (
+                //<div className="offer-list" >
+                <CardHome boat={x} key={x._id} />
+                //</div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };

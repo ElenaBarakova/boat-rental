@@ -1,17 +1,23 @@
 import "./Details.css";
-import { Link, useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState, useContext, useRef } from "react";
 import * as boatService from "../../services/boatService";
-import { useContext } from "react";
+import * as quoteService from "../../services/quoteService";
 import { AuthContext } from "../../contexts/AuthContext";
 
-export const Details = ({ boat }) => {
+export const Details = () => {
   const [currentBoat, setCurrentBoat] = useState({});
+  const [startDate, setStartDate] = useState("yyyy-mm-dd");
+  const [endDate, setEndDate] = useState("yyyy-mm-dd");
 
   const { auth } = useContext(AuthContext);
   const { boatId } = useParams();
+  const formRef = useRef();
   const navigate = useNavigate();
+
+  const startDateCheck = new Date(startDate).getTime();
+  const endDateCheck = new Date(endDate).getTime();
+  const isDateRangeValid = endDateCheck < startDateCheck;
 
   useEffect(() => {
     boatService.getOne(boatId).then((boatData) => {
@@ -22,6 +28,31 @@ export const Details = ({ boat }) => {
   const deleteHandler = () => {
     boatService.del(boatId, auth.accessToken);
     navigate("/catalog");
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const startDate = formRef.current?.start.value;
+    const endDate = formRef.current?.end.value;
+
+    const quoteData = {
+      name: currentBoat.name,
+      type: currentBoat.type,
+      _ownerId: currentBoat._ownerId,
+      userId: auth._id,
+      userEmail: auth.email,
+      ownerEmail: currentBoat.ownerEmail,
+      startDate,
+      endDate,
+      status: "Pending",
+    };
+
+    quoteService.create(quoteData, auth.accessToken).then((result) => {
+      console.log(result);
+    });
+
+    navigate("/my-profile");
   };
 
   const isOwner = currentBoat._ownerId === auth._id;
@@ -57,9 +88,13 @@ export const Details = ({ boat }) => {
               >
                 EDIT
               </Link>
-              <button>
-                type="button" className="btn-delete btn-lg btn-hover"
-                data-toggle="modal" data-target="#deleteModal" > DELETE
+              <button
+                type="button"
+                className="btn-delete btn-lg btn-hover"
+                data-toggle="modal"
+                data-target="#deleteModal"
+              >
+                DELETE
               </button>
             </div>
           ) : (
@@ -67,14 +102,14 @@ export const Details = ({ boat }) => {
               type="button"
               className="btn-get-quote btn-lg btn-hover"
               data-toggle="modal"
-              data-target="#deleteModal"
+              data-target="#quoteModal"
             >
               GET A QUOTE
             </button>
           )}
 
           {/* <!-- Modal --> */}
-          <div id="deleteModal" className="modal fade" role="dialog">
+          <div id="quoteModal" className="modal fade" role="dialog">
             <div className="modal-dialog">
               {/* <!-- Modal content--> */}
               <div className="modal-content">
@@ -84,39 +119,67 @@ export const Details = ({ boat }) => {
                   </button>
                   <h4 className="modal-title">Choose dates</h4>
                 </div>
-                <div className="modal-body">
-                  <div className="calendar">
-                    <label htmlFor="start">Start date:</label>
-                    <input type="date" id="start" name="quote-start" />
+                <form method="POST" ref={formRef}>
+                  <div className="modal-body">
+                    <div className="calendar">
+                      <label htmlFor="start">Start date:</label>
+                      <input
+                        type="date"
+                        id="start"
+                        name="start"
+                        value={startDate}
+                        onChange={(e) => {
+                          setStartDate(e.target.value);
+                        }}
+                      />
+                    </div>
+                    <div className="calendar">
+                      <label htmlFor="end">End date:</label>
+                      <input
+                        type="date"
+                        id="end"
+                        name="end"
+                        value={endDate}
+                        onChange={(e) => {
+                          setEndDate(e.target.value);
+                        }}
+                      />
+                    </div>
+                    {isDateRangeValid && (
+                      <div
+                        id="validationServerUsernameFeedback"
+                        className="invalid-feedback"
+                      >
+                        End date must be after start date
+                      </div>
+                    )}
                   </div>
-                  <div className="calendar">
-                    <label htmlFor="end">End date:</label>
-                    <input type="date" id="end" name="quote-end" />
+
+                  <div className="modal-footer">
+                    <button
+                      type="submit"
+                      className="btn btn-default btn-hover"
+                      data-dismiss="modal"
+                      onClick={onSubmit}
+                      disabled={isDateRangeValid ? true : false}
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-default btn-hover"
+                      data-dismiss="modal"
+                    >
+                      Cancel
+                    </button>
                   </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-default btn-hover"
-                    data-dismiss="modal"
-                    onClick={deleteHandler}
-                  >
-                    Confirm
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-hover"
-                    data-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                </div>
+                </form>
               </div>
             </div>
           </div>
 
           {/* <!-- Modal --> */}
-          <div id="quoteModal" className="modal fade" role="dialog">
+          <div id="deleteModal" className="modal fade" role="dialog">
             <div className="modal-dialog">
               {/* <!-- Modal content--> */}
               <div className="modal-content">

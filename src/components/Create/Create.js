@@ -21,12 +21,12 @@ export const Create = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const boatData = Object.fromEntries(new FormData(e.target));
+    const boatDataForm = Object.fromEntries(new FormData(e.target));
+    const boatData = { ...boatDataForm, ownerEmail: auth.email };
     boatService.create(boatData, auth.accessToken).then((result) => {
       createBoatListingHandler(result);
     });
     navigate("/catalog");
-    console.log(boatData);
   };
 
   const addToValidationErrors = (key, value) => {

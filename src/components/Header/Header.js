@@ -16,9 +16,6 @@ export const Header = () => {
           <li>
             <Link to="/catalog">Boats</Link>
           </li>
-          <li>
-            <Link to="/search">Search</Link>
-          </li>
 
           {auth.accessToken ? (
             <>
