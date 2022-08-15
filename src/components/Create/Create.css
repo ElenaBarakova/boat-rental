@@ -3,43 +3,43 @@ main {
   padding-bottom: 50px;
 }
 
-#create-container {
+.create-container-info {
   color: rgb(61, 106, 120);
-  width: 420px;
+  width: 100%;
   height: auto;
   margin: auto;
+  padding: 0 16px;
   background-color: rgba(240, 248, 255, 0.6);
   border: 2px solid white;
-  border-radius: 20px;
 }
 
-#create-container h1 {
+.create-container-info .font-weight-bold-title {
+  padding-top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
   text-align: center;
-  padding-top: 15px;
-  color: rgb(61, 106, 120);
-  font-weight: bolder;
+  color: rgb(94, 138, 151);
 }
 
-#create-container h4 {
-  margin-top: 10px;
+.create-container-info h5 {
   text-align: center;
   color: rgb(61, 106, 120);
 }
 
-#create-container form {
-  width: 360px;
-  margin-left: 20px;
+.create-container-info form {
+  width: 100%;
 }
 
-#create-container form label {
+.create-container-info form label {
   display: flex;
   margin-top: 20px;
   margin-bottom: 5px;
   font-size: 18px;
 }
 
-#create-container form input {
-  width: 380px;
+.create-container-info form input {
+  width: 100%;
   height: 30px;
   padding-left: 7px;
   border: none;
@@ -49,17 +49,12 @@ main {
   background-color: whitesmoke;
 }
 
-#create-container input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-#create-container input[type="number"] {
+.create-container-info input[type="number"] {
   -moz-appearance: textfield;
 }
 
-#create-container form textarea {
-  width: 380px;
+.create-container-info form textarea {
+  width: 100%;
   height: 60px;
   padding-left: 7px;
   border: none;
@@ -70,22 +65,18 @@ main {
   resize: none;
 }
 
-#create-container select {
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  flex: 1;
-  padding: 0 1em;
-  cursor: pointer;
-  height: 20px;
-  font-weight: bold;
-  border-radius: 20px;
-  width: 380px;
-  color: rgb(61, 106, 120);
+.create-container-info select {
+  width: 100%;
+  height: 30px;
+  padding-left: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 8px;
+  outline: none;
   background-color: whitesmoke;
 }
 
-#create-container input[type="submit"] {
+.create-container-info .create-button #btn {
   position: relative;
   border: 5em;
   cursor: pointer;
@@ -99,13 +90,20 @@ main {
   -webkit-transition: box-shadow 0.25s;
   transition: box-shadow 0.25s;
   color: white;
-  width: 380px;
+  padding-left: 60px;
+  padding-right: 60px;
   height: 40px;
   margin-bottom: 10px;
   margin-top: 10px;
   text-decoration: none;
 }
 
-#create-container input[type="submit"]:hover {
+.create-container-info .create-button {
+  text-align: center;
+}
+
+.create-container-info .create-button #btn:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
+  color: rgb(61, 106, 120);
+  text-decoration: underline;
 }

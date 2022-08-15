@@ -19,6 +19,11 @@ export const Create = () => {
   const formRef = useRef();
   const navigate = useNavigate();
 
+  const isValidationErrorsEmpty = !Object.values(validationErrors).length;
+  const areAllFormFieldsFilled = Object.values(formFields).every(
+    (inputName) => formRef.current?.[inputName].value
+  );
+
   const onSubmit = (e) => {
     e.preventDefault();
     const boatDataForm = Object.fromEntries(new FormData(e.target));
@@ -129,123 +134,135 @@ export const Create = () => {
 
   return (
     <>
-      {/* <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div> */}
       <section id="create-container">
         <div className="create-container-info">
-          <h1>Create Listing</h1>
-          <h4>Post your boat for rent</h4>
+          <p className="font-weight-bold-title">Create Listing</p>
+          <h5>Post your boat for rent</h5>
           <form method="POST" onSubmit={onSubmit} ref={formRef}>
-            <div className="form-group">
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                placeholder="Boat"
-                onBlur={() => blurHandler(formFields.name)}
-              />
-              {validationErrors?.name && (
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {validationErrors.name}
+            <div className="row">
+              <div className="col-6">
+                <div className="form-group">
+                  <label htmlFor="name" className="font-weight-bold">
+                    Name:
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Boat"
+                    onBlur={() => blurHandler(formFields.name)}
+                  />
+                  {validationErrors?.name && (
+                    <div
+                      id="validationServerUsernameFeedback"
+                      className="invalid-field"
+                    >
+                      {validationErrors.name}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="image">Image:</label>
-              <input
-                type="text"
-                id="image"
-                name="image"
-                placeholder="http://..."
-                onBlur={() => blurHandler(formFields.image)}
-              />
-              {validationErrors?.image && (
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {validationErrors.image}
+                <div className="form-group">
+                  <label htmlFor="image" className="font-weight-bold">
+                    Image:
+                  </label>
+                  <input
+                    type="text"
+                    id="image"
+                    name="image"
+                    placeholder="http://..."
+                    onBlur={() => blurHandler(formFields.image)}
+                  />
+                  {validationErrors?.image && (
+                    <div
+                      id="validationServerUsernameFeedback"
+                      className="invalid-field"
+                    >
+                      {validationErrors.image}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="type">Boat type:</label>
-              <select id="type" name="type">
-                <option value="sail">Sail</option>
-                <option value="catamaran">Catamaran</option>
-                <option value="motor">Motor</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="capacity">Capacity:</label>
-              <input
-                type="number"
-                id="capacity"
-                name="capacity"
-                placeholder="4 persons"
-                onBlur={() => blurHandler(formFields.capacity)}
-              />
-              {validationErrors?.capacity && (
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {validationErrors.capacity}
+                <div className="form-group">
+                  <label htmlFor="type" className="font-weight-bold">
+                    Boat type:
+                  </label>
+                  <select id="type" name="type">
+                    <option value="sail">Sail</option>
+                    <option value="catamaran">Catamaran</option>
+                    <option value="motor">Motor</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
-              )}
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="location">Location:</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Lefcada Island"
-                onBlur={() => blurHandler(formFields.location)}
-              />
-              {validationErrors?.location && (
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {validationErrors.location}
+              </div>
+              <div className="col-6">
+                <div className="form-group">
+                  <label htmlFor="capacity" className="font-weight-bold">
+                    Capacity:
+                  </label>
+                  <input
+                    type="number"
+                    id="capacity"
+                    name="capacity"
+                    placeholder="4 persons"
+                    onBlur={() => blurHandler(formFields.capacity)}
+                  />
+                  {validationErrors?.capacity && (
+                    <div
+                      id="validationServerUsernameFeedback"
+                      className="invalid-field"
+                    >
+                      {validationErrors.capacity}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
 
-            <div className="form-group">
-              <label htmlFor="price">Price per day:</label>
-              <input
-                type="number"
-                id="price"
-                name="price"
-                placeholder="$1000.00"
-                onBlur={() => blurHandler(formFields.price)}
-              />
-              {validationErrors?.price && (
-                <div
-                  id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
-                >
-                  {validationErrors.price}
+                <div className="form-group">
+                  <label htmlFor="location" className="font-weight-bold">
+                    Location:
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    placeholder="Lefcada Island"
+                    onBlur={() => blurHandler(formFields.location)}
+                  />
+                  {validationErrors?.location && (
+                    <div
+                      id="validationServerUsernameFeedback"
+                      className="invalid-field"
+                    >
+                      {validationErrors.location}
+                    </div>
+                  )}
                 </div>
-              )}
+
+                <div className="form-group">
+                  <label htmlFor="price" className="font-weight-bold">
+                    Price per day:
+                  </label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    placeholder="$1000.00"
+                    onBlur={() => blurHandler(formFields.price)}
+                  />
+                  {validationErrors?.price && (
+                    <div
+                      id="validationServerUsernameFeedback"
+                      className="invalid-field"
+                    >
+                      {validationErrors.price}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="description">Additional information:</label>
+              <label htmlFor="description" className="font-weight-bold">
+                Additional information:
+              </label>
               <textarea
                 type="text"
                 id="description"
@@ -257,27 +274,28 @@ export const Create = () => {
               {validationErrors?.description && (
                 <div
                   id="validationServerUsernameFeedback"
-                  className="invalid-feedback"
+                  className="invalid-field"
                 >
                   {validationErrors.description}
                 </div>
               )}
             </div>
-
-            <input
-              type="submit"
-              id="btn btn-hover"
-              value={`CREATE`}
-              // disabled={validationErrors ? "disabled" : " "}
-            />
+            <div className="create-button">
+              <button
+                type="submit"
+                id="btn"
+                disabled={
+                  isValidationErrorsEmpty && areAllFormFieldsFilled
+                    ? false
+                    : true
+                }
+              >
+                CREATE
+              </button>
+            </div>
           </form>
         </div>
       </section>
-      {/* <div>
-            <div class="errorContainer">
-                <p>Error</p>
-            </div>
-        </div> */}
     </>
   );
 };

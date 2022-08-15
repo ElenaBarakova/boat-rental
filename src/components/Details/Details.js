@@ -58,159 +58,190 @@ export const Details = () => {
   const isOwner = currentBoat._ownerId === auth._id;
 
   return (
-    <section className="details-info">
-      <h1>Details</h1>
-      <div className="boat-img">
-        <img src={currentBoat.image} alt=" " />
-      </div>
-      <div className="boat-info">
-        <div className="boat-text">
-          <h1 id="name">Name: {currentBoat.name}</h1>
-
-          <p id="type">Boat type: {currentBoat.type}</p>
-          <p id="capacity">Capacity: {currentBoat.capacity} persons</p>
-          <p id="location">Location: {currentBoat.location}</p>
-
-          <p id="price">
-            <span>Price: ${currentBoat.price}</span>
-          </p>
-          <p id="description">Additional information:</p>
-          <p id="description">{currentBoat.description}</p>
+    <section className="details">
+      <div className="row">
+        <div className="col-6">
+          <div className="boat-img">
+            <img src={currentBoat.image} alt=" " />
+          </div>
         </div>
-        <div className="product-btn">
-          {/*Only for registered user and author of the publication */}
+        <div className="col-6">
+          <div className="boat-info">
+            <div className="boat-text">
+              <p className="detail-title font-weight-bold-title">Details</p>
 
-          {isOwner ? (
-            <div className="author">
-              <Link
-                to={`/details/${boatId}/edit`}
-                className="btn-edit btn-hover"
-              >
-                EDIT
-              </Link>
-              <button
-                type="button"
-                className="btn-delete btn-lg btn-hover"
-                data-toggle="modal"
-                data-target="#deleteModal"
-              >
-                DELETE
-              </button>
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="btn-get-quote btn-lg btn-hover"
-              data-toggle="modal"
-              data-target="#quoteModal"
-            >
-              GET A QUOTE
-            </button>
-          )}
+              <p className="detail">
+                <span className="font-weight-bold">Name: </span>
+                {currentBoat.name}
+              </p>
 
-          {/* <!-- Modal --> */}
-          <div id="quoteModal" className="modal fade" role="dialog">
-            <div className="modal-dialog">
-              {/* <!-- Modal content--> */}
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                  <h4 className="modal-title">Choose dates</h4>
-                </div>
-                <form method="POST" ref={formRef}>
-                  <div className="modal-body">
-                    <div className="calendar">
-                      <label htmlFor="start">Start date:</label>
-                      <input
-                        type="date"
-                        id="start"
-                        name="start"
-                        value={startDate}
-                        onChange={(e) => {
-                          setStartDate(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="calendar">
-                      <label htmlFor="end">End date:</label>
-                      <input
-                        type="date"
-                        id="end"
-                        name="end"
-                        value={endDate}
-                        onChange={(e) => {
-                          setEndDate(e.target.value);
-                        }}
-                      />
-                    </div>
-                    {isDateRangeValid && (
-                      <div
-                        id="validationServerUsernameFeedback"
-                        className="invalid-feedback"
-                      >
-                        End date must be after start date
-                      </div>
-                    )}
-                  </div>
+              <p className="detail">
+                <span className="font-weight-bold">Boat type: </span>
+                {currentBoat.type}
+              </p>
+              <p className="detail">
+                <span className="font-weight-bold">Capacity: </span>
+                {currentBoat.capacity} persons
+              </p>
+              <p className="detail">
+                <span className="font-weight-bold">Location: </span>
+                {currentBoat.location}
+              </p>
 
-                  <div className="modal-footer">
-                    <button
-                      type="submit"
-                      className="btn btn-default btn-hover"
-                      data-dismiss="modal"
-                      onClick={onSubmit}
-                      disabled={isDateRangeValid ? true : false}
+              <p className="detail">
+                <span className="font-weight-bold">Price: </span>$
+                {currentBoat.price}
+              </p>
+              <p id="description">
+                <span className="font-weight-bold">
+                  Additional information:
+                </span>
+              </p>
+              <p id="description">{currentBoat.description}</p>
+              <div className="details-btn">
+                {/*Only for registered user and author of the publication */}
+
+                {isOwner ? (
+                  <div>
+                    <Link
+                      to={`/details/${boatId}/edit`}
+                      className="btn-edit btn-lg btn-hover"
                     >
-                      Confirm
-                    </button>
+                      EDIT
+                    </Link>
                     <button
                       type="button"
-                      className="btn btn-default btn-hover"
-                      data-dismiss="modal"
+                      className="btn-delete btn-lg btn-hover"
+                      data-toggle="modal"
+                      data-target="#deleteModal"
                     >
-                      Cancel
+                      DELETE
                     </button>
                   </div>
-                </form>
+                ) : (
+                  <button
+                    type="button"
+                    className="btn-get-quote btn-lg btn-hover"
+                    data-toggle="modal"
+                    data-target="#quoteModal"
+                  >
+                    GET A QUOTE
+                  </button>
+                )}
               </div>
-            </div>
-          </div>
+              {/* <!-- Modal --> */}
+              <div id="quoteModal" className="modal fade" role="dialog">
+                <div className="modal-dialog">
+                  {/* <!-- Modal content--> */}
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                      <h4 className="modal-title">Choose dates</h4>
+                    </div>
+                    <form method="POST" ref={formRef}>
+                      <div className="modal-body">
+                        <div className="calendar">
+                          <label htmlFor="start">Start date:</label>
+                          <input
+                            type="date"
+                            id="start"
+                            name="start"
+                            value={startDate}
+                            onChange={(e) => {
+                              setStartDate(e.target.value);
+                            }}
+                          />
+                        </div>
+                        <div className="calendar">
+                          <label htmlFor="end">End date:</label>
+                          <input
+                            type="date"
+                            id="end"
+                            name="end"
+                            value={endDate}
+                            onChange={(e) => {
+                              setEndDate(e.target.value);
+                            }}
+                          />
+                        </div>
+                        {isDateRangeValid && (
+                          <div
+                            id="validationServerUsernameFeedback"
+                            className="invalid-feedback"
+                          >
+                            End date must be after start date
+                          </div>
+                        )}
+                      </div>
 
-          {/* <!-- Modal --> */}
-          <div id="deleteModal" className="modal fade" role="dialog">
-            <div className="modal-dialog">
-              {/* <!-- Modal content--> */}
-              <div className="modal-content">
-                <div className="modal-header">
-                  <button type="button" className="close" data-dismiss="modal">
-                    &times;
-                  </button>
-                  <h4 className="modal-title">Delete Listing</h4>
+                      <div className="modal-footer">
+                        <button
+                          type="submit"
+                          className="btn btn-default btn-hover"
+                          data-dismiss="modal"
+                          onClick={onSubmit}
+                          disabled={isDateRangeValid ? true : false}
+                        >
+                          Confirm
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-default btn-hover"
+                          data-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
-                <div className="modal-body">
-                  <p>
-                    Are you sure you want to delete {currentBoat.type}:{" "}
-                    {currentBoat.name}
-                  </p>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-default btn-hover"
-                    data-dismiss="modal"
-                    onClick={deleteHandler}
-                  >
-                    Delete
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-default btn-hover"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
+              </div>
+
+              {/* <!-- Modal --> */}
+              <div id="deleteModal" className="modal fade" role="dialog">
+                <div className="modal-dialog">
+                  {/* <!-- Modal content--> */}
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <button
+                        type="button"
+                        className="close"
+                        data-dismiss="modal"
+                      >
+                        &times;
+                      </button>
+                      <h4 className="modal-title">Delete Listing</h4>
+                    </div>
+                    <div className="modal-body">
+                      <p>
+                        Are you sure you want to delete {currentBoat.type}:{" "}
+                        {currentBoat.name}
+                      </p>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-default btn-hover"
+                        data-dismiss="modal"
+                        onClick={deleteHandler}
+                      >
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-default btn-hover"
+                        data-dismiss="modal"
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

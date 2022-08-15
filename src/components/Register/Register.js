@@ -154,7 +154,7 @@ export const Register = () => {
           {validationErrors?.username && (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback"
+              className="invalid-field"
             >
               {validationErrors.username}
             </div>
@@ -173,7 +173,7 @@ export const Register = () => {
           {validationErrors?.email && (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback"
+              className="invalid-field"
             >
               {validationErrors.email}
             </div>
@@ -192,7 +192,7 @@ export const Register = () => {
           {validationErrors?.password && (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback"
+              className="invalid-field"
             >
               {validationErrors.password}
             </div>
@@ -211,7 +211,7 @@ export const Register = () => {
           {validationErrors?.confirmPassword && (
             <div
               id="validationServerUsernameFeedback"
-              className="invalid-feedback"
+              className="invalid-field"
             >
               {validationErrors.confirmPassword}
             </div>

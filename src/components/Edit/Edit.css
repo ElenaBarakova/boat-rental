@@ -1,45 +1,55 @@
 main {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-#create-container {
+.edit-container-info {
   color: rgb(61, 106, 120);
-  width: 420px;
+  width: 100%;
   height: auto;
-  margin: auto;
+  padding: 0 16px;
   background-color: rgba(240, 248, 255, 0.6);
   border: 2px solid white;
-  border-radius: 20px;
+}
+.edit-container-info .boat-img img {
+  min-width: 100%;
+  max-height: 400px;
+  object-fit: cover;
 }
 
-#create-container h1 {
+.edit-container-info .boat-img {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.edit-container-info .font-weight-bold-title {
+  padding-top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
   text-align: center;
-  padding-top: 15px;
-  color: rgb(61, 106, 120);
-  font-weight: bolder;
+  color: rgb(94, 138, 151);
 }
 
-#create-container h4 {
+.edit-container-info h4 {
   margin-top: 10px;
   text-align: center;
   color: rgb(61, 106, 120);
 }
 
-#create-container form {
-  width: 360px;
-  margin-left: 20px;
+.edit-container-info form {
+  width: 100%;
 }
 
-#create-container form label {
+.edit-container-info form label {
   display: flex;
   margin-top: 20px;
   margin-bottom: 5px;
   font-size: 18px;
 }
 
-#create-container form input {
-  width: 380px;
+.edit-container-info form input {
+  width: 100%;
   height: 30px;
   padding-left: 7px;
   border: none;
@@ -48,18 +58,17 @@ main {
   outline: none;
   background-color: whitesmoke;
 }
-
-#create-container input::-webkit-inner-spin-button {
+.edit-container-info input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-#create-container input[type="number"] {
+.edit-container-info input[type="number"] {
   -moz-appearance: textfield;
 }
 
-#create-container form textarea {
-  width: 380px;
+.edit-container-info form textarea {
+  width: 100%;
   height: 60px;
   padding-left: 7px;
   border: none;
@@ -70,55 +79,59 @@ main {
   resize: none;
 }
 
-#create-container select {
-  outline: 0;
-  border: 0;
-  box-shadow: none;
-  flex: 1;
-  padding: 0 1em;
-  cursor: pointer;
-  height: 20px;
-  font-weight: bold;
-  border-radius: 20px;
-  width: 380px;
-  color: rgb(61, 106, 120);
+.edit-container-info select {
+  width: 100%;
+  height: 30px;
+  padding-left: 7px;
+  border: none;
+  border: 1px solid gray;
+  border-radius: 8px;
+  outline: none;
   background-color: whitesmoke;
 }
 
-#create-container input[type="submit"] {
-  /* width: 320px;
-  height: 35px;
-  margin-top: 20px;
-  border: none;
-  background-color: #49c1a2;
-  color: white;
-  font-size: 15px;
-  margin-bottom: 30px; */
-
+.edit-container-info .save-button #btn {
   position: relative;
   border: 5em;
   cursor: pointer;
   outline: none;
   font-size: 14px;
-  /* -webkit-transform: translate(0);
-  transform: translate(0); */
-  background-image: linear-gradient(45deg, #3798b5, #9ae4ff);
+  background-color: #3798b5;
   padding: 0.8em 2em;
   border-radius: 65px;
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
   -webkit-transition: box-shadow 0.25s;
   transition: box-shadow 0.25s;
   color: white;
-  width: 380px;
   height: 40px;
+  padding-left: 60px;
+  padding-right: 60px;
   margin-bottom: 10px;
   margin-top: 10px;
   text-decoration: none;
 }
+.edit-container-info .save-button {
+  text-align: center;
+}
 
-#create-container input[type="submit"]:hover {
-  box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
+.edit-container-info .save-button:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
   color: rgb(61, 106, 120);
   text-decoration: underline;
+}
+
+.edit-container-info .save-button:disabled {
+  background-color: #878787;
+  background-image: none;
+  color: #ccc;
+}
+
+.invalid-field {
+  color: red;
+}
+
+.edit-container-info .font-weight-bold-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
 }

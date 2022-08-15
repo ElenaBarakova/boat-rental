@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import "./Header.css";
+import logo from "../../img/boat-logo.png"; // Tell webpack this JS file uses this image
 
 export const Header = () => {
   const { auth } = useContext(AuthContext);
@@ -9,6 +10,13 @@ export const Header = () => {
   return (
     <header className="header">
       <nav>
+        <Link to="/">
+          <img
+            src={logo}
+            className="d-inline-block align-top logo-header"
+            alt=""
+          />
+        </Link>
         <ul>
           <li>
             <Link to="/">Home</Link>
