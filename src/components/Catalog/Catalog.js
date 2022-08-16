@@ -15,6 +15,10 @@ export const Catalog = () => {
       .catch(() => {
         setBoats([]);
       });
+
+    return () => {
+      setBoats([]);
+    };
   }, []);
 
   return (

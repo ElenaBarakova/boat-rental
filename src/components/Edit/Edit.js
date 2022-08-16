@@ -3,7 +3,6 @@ import "./Edit.css";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState, useRef } from "react";
-
 import { boatTypes, formFields } from "../../constants/constants";
 import {
   checkMaxLength,
@@ -12,12 +11,13 @@ import {
 } from "../../services/validationService";
 import { BoatContext } from "../../contexts/BoatContext";
 import * as boatService from "../../services/boatService";
+import Button from "../Button/Button";
 
 export const Edit = () => {
   const [currentBoat, setCurrentBoat] = useState({});
   const [selectedType, setSelectedType] = useState(boatTypes[0]);
   const [validationErrors, setValidationErrors] = useState({});
-
+  const [areAllFormFieldsFilled, setAreAllFormFieldsFilled] = useState(false);
   const { auth } = useContext(AuthContext);
   const { createBoatListingHandler } = useContext(BoatContext);
   const { boatId } = useParams();
@@ -25,9 +25,6 @@ export const Edit = () => {
   const navigate = useNavigate();
 
   const isValidationErrorsEmpty = !Object.values(validationErrors).length;
-  const areAllFormFieldsFilled = Object.values(formFields).every(
-    (inputName) => formRef.current?.[inputName].value
-  );
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +41,15 @@ export const Edit = () => {
       setSelectedType(boatData.type);
     });
   }, [boatId]);
+
+  useEffect(() => {
+    const fieldsFilled = Object.values(formFields).every(
+      (inputName) =>
+        formRef.current?.[inputName]?.value ||
+        formRef.current?.[inputName]?.defaultValue
+    );
+    setAreAllFormFieldsFilled(fieldsFilled);
+  }, [currentBoat]);
 
   const selectTypeHandler = (e) => {
     setSelectedType(e.target.value);
@@ -153,7 +159,7 @@ export const Edit = () => {
       <section id="edit-container">
         <div className="edit-container-info">
           <p className="font-weight-bold-title">Edit Listing</p>
-          <form method="POST" onSubmit={onSubmit} ref={formRef}>
+          <form onSubmit={onSubmit} ref={formRef}>
             <div className="row">
               <div className="col-6">
                 <div className="form-group">
@@ -302,10 +308,11 @@ export const Edit = () => {
                 </div>
               )}
             </div>
-            <div className="save-button">
-              <button
+            <div className="btn-container">
+              <Button
                 type="submit"
                 id="btn"
+                className="submit-btn"
                 disabled={
                   isValidationErrorsEmpty && areAllFormFieldsFilled
                     ? false
@@ -313,7 +320,7 @@ export const Edit = () => {
                 }
               >
                 SAVE
-              </button>
+              </Button>
             </div>
           </form>
         </div>

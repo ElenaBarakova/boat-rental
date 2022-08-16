@@ -3,17 +3,16 @@ main {
   padding-bottom: 50px;
 }
 
-#profile-container {
+.profile-container {
   color: rgb(61, 106, 120);
-  width: 960px;
+  width: 100%;
   height: auto;
-  margin: auto;
   background-color: rgba(240, 248, 255, 0.6);
   border: 2px solid white;
-  border-radius: 20px;
+  padding: 20px;
 }
 
-#profile-container h1 {
+.profile-container h1 {
   text-align: center;
   padding-top: 15px;
   color: rgb(61, 106, 120);
@@ -23,28 +22,28 @@ main {
 .profile-container-info {
   margin-top: 30px;
 }
-#profile-container h4 {
-  text-align: left;
-  margin-left: 30px;
+.profile-container h4 {
   color: rgb(61, 106, 120);
+  text-align: left;
+  font-size: 20px;
 }
 
 .quotes-title {
   margin-top: 50px;
 }
 
-#profile-container input::-webkit-inner-spin-button {
+.profile-container input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-#profile-container input[type="submit"]:hover {
+.profile-container input[type="submit"]:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
 }
 
 .table {
-  margin-left: 30px;
-  width: 900px;
+  padding-left: 20px;
+  /* width: 100%; */
   box-shadow: 1px 1px 10px rgba(105, 104, 104, 0.438);
 }
 
@@ -57,8 +56,7 @@ main {
   cursor: pointer;
   outline: none;
   font-size: 16px;
-
-  background-image: linear-gradient(45deg, #3798b5, #9ae4ff);
+  background-color: #3798b5;
   border-radius: 4px;
   box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
   -webkit-transition: box-shadow 0.25s;
@@ -71,6 +69,15 @@ main {
 .btn-reject:hover,
 .btn-accept:hover {
   color: rgb(61, 106, 120);
+}
+
+.profile-container .font-weight-bold-title {
+  padding-top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: rgb(94, 138, 151);
 }
 
 .btns {

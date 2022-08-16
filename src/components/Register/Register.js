@@ -2,7 +2,7 @@ import "./Register.css";
 
 import * as authService from "../../services/authService";
 import { useNavigate } from "react-router-dom";
-
+import Button from "../Button/Button";
 import { useContext, useRef, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import {
@@ -217,14 +217,15 @@ export const Register = () => {
             </div>
           )}
         </div>
-        <input
+        <Button
           type="submit"
-          value="REGISTER"
-          className="btn-hover"
+          className="btn-register"
           disabled={
             isValidationErrorsEmpty && areAllFormFieldsFilled ? false : true
           }
-        />
+        >
+          REGISTER
+        </Button>
       </form>
       <p>
         Already have an account? <a href="/login">Login here</a>

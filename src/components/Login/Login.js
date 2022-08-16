@@ -1,6 +1,7 @@
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
+import Button from "../Button/Button";
 
 import { AuthContext } from "../../contexts/AuthContext";
 import * as authService from "../../services/authService";
@@ -48,7 +49,9 @@ export const Login = () => {
         <input type="text" name="email" placeholder="Email.." />
         <label>Password</label>
         <input type="password" name="password" placeholder="Password.." />
-        <input type="submit" value="LOGIN" className="btn-hover" />
+        <Button type="submit" className="btn-login">
+          LOGIN
+        </Button>
       </form>
       <p>
         Not have an account?

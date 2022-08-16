@@ -65,8 +65,8 @@ export const MyProfile = () => {
 
   return (
     <>
-      <section id="profile-container">
-        <h1>My Profile</h1>
+      <section className="profile-container">
+        <p className="font-weight-bold-title">My Profile</p>
 
         <div className="profile-container-info">
           <h4>Name: {auth.username}</h4>

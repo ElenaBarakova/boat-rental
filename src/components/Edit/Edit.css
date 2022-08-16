@@ -90,40 +90,14 @@ main {
   background-color: whitesmoke;
 }
 
-.edit-container-info .save-button #btn {
-  position: relative;
-  border: 5em;
-  cursor: pointer;
-  outline: none;
-  font-size: 14px;
-  background-color: #3798b5;
-  padding: 0.8em 2em;
-  border-radius: 65px;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
-  -webkit-transition: box-shadow 0.25s;
-  transition: box-shadow 0.25s;
-  color: white;
-  height: 40px;
+.edit-container-info .btn-container .submit-btn {
   padding-left: 60px;
   padding-right: 60px;
   margin-bottom: 10px;
   margin-top: 10px;
-  text-decoration: none;
 }
-.edit-container-info .save-button {
+.edit-container-info .btn-container {
   text-align: center;
-}
-
-.edit-container-info .save-button:hover {
-  box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
-  color: rgb(61, 106, 120);
-  text-decoration: underline;
-}
-
-.edit-container-info .save-button:disabled {
-  background-color: #878787;
-  background-image: none;
-  color: #ccc;
 }
 
 .invalid-field {
@@ -131,7 +105,10 @@ main {
 }
 
 .edit-container-info .font-weight-bold-title {
+  padding-top: 20px;
   font-size: 28px;
+  font-weight: 700;
   margin-bottom: 20px;
   text-align: center;
+  color: rgb(94, 138, 151);
 }

@@ -1,9 +1,9 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import * as boatService from "../../services/boatService";
 import boatSign from "../../img/boat-sign.png";
 import "./Home.css";
 import { Boat } from "../Boat/Boat";
+import Button from "../Button/Button";
 
 export const Home = () => {
   const [boats, setBoats] = useState([]);
@@ -26,9 +26,7 @@ export const Home = () => {
         <img src={boatSign} alt="sign" />
       </div>
 
-      <Link to="/catalog" className="button-home btn-hover">
-        BOOK YOUR BOAT
-      </Link>
+      <Button to="/catalog">BOOK YOUR BOAT</Button>
 
       {boats.length > 0 && (
         <>

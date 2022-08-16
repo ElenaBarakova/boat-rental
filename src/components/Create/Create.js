@@ -11,6 +11,7 @@ import {
 import { formFields } from "../../constants/constants";
 import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Button from "../Button/Button";
 
 export const Create = () => {
   const { auth } = useContext(AuthContext);
@@ -280,9 +281,10 @@ export const Create = () => {
                 </div>
               )}
             </div>
-            <div className="create-button">
-              <button
+            <div className="btn-create-container">
+              <Button
                 type="submit"
+                className="create-button"
                 id="btn"
                 disabled={
                   isValidationErrorsEmpty && areAllFormFieldsFilled
@@ -291,7 +293,7 @@ export const Create = () => {
                 }
               >
                 CREATE
-              </button>
+              </Button>
             </div>
           </form>
         </div>

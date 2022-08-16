@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import "./Boat.css";
+import Button from "../Button/Button";
 
 export const Boat = ({ boat }) => {
   return (
@@ -23,12 +23,7 @@ export const Boat = ({ boat }) => {
               </p>
             </div>
             <div>
-              <Link
-                to={`/details/${boat._id}`}
-                className="btn-details btn-hover"
-              >
-                DETAILS
-              </Link>
+              <Button to={`/details/${boat._id}`}>DETAILS</Button>
             </div>
           </div>
         </div>

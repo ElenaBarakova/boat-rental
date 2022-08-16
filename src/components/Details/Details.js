@@ -1,9 +1,10 @@
 import "./Details.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState, useContext, useRef } from "react";
 import * as boatService from "../../services/boatService";
 import * as quoteService from "../../services/quoteService";
 import { AuthContext } from "../../contexts/AuthContext";
+import Button, { buttonVariants } from "../Button/Button";
 
 export const Details = () => {
   const [currentBoat, setCurrentBoat] = useState({});
@@ -99,42 +100,37 @@ export const Details = () => {
               </p>
               <p id="description">{currentBoat.description}</p>
               <div className="details-btn">
-                {/*Only for registered user and author of the publication */}
-
                 {isOwner ? (
                   <div>
-                    <Link
-                      to={`/details/${boatId}/edit`}
-                      className="btn-edit btn-lg btn-hover"
-                    >
+                    <Button to={`/details/${boatId}/edit`} className="btn-edit">
                       EDIT
-                    </Link>
-                    <button
-                      type="button"
-                      className="btn-delete btn-lg btn-hover"
+                    </Button>
+                    <Button
                       data-toggle="modal"
                       data-target="#deleteModal"
+                      variant={buttonVariants.red}
                     >
                       DELETE
-                    </button>
+                    </Button>
                   </div>
                 ) : (
-                  <button
+                  <Button
                     type="button"
-                    className="btn-get-quote btn-lg btn-hover"
                     data-toggle="modal"
                     data-target="#quoteModal"
                   >
                     GET A QUOTE
-                  </button>
+                  </Button>
                 )}
               </div>
               {/* <!-- Modal --> */}
-              <div id="quoteModal" className="modal fade" role="dialog">
+              <div id="quoteModal" className="modal fade" aria-hidden="true">
                 <div className="modal-dialog">
                   {/* <!-- Modal content--> */}
                   <div className="modal-content">
                     <div className="modal-header">
+                      <h4 className="modal-title w-100">Choose dates</h4>
+
                       <button
                         type="button"
                         className="close"
@@ -142,7 +138,6 @@ export const Details = () => {
                       >
                         &times;
                       </button>
-                      <h4 className="modal-title">Choose dates</h4>
                     </div>
                     <form method="POST" ref={formRef}>
                       <div className="modal-body">
@@ -173,7 +168,7 @@ export const Details = () => {
                         {isDateRangeValid && (
                           <div
                             id="validationServerUsernameFeedback"
-                            className="invalid-feedback"
+                            className="invalid-field"
                           >
                             End date must be after start date
                           </div>
@@ -181,22 +176,18 @@ export const Details = () => {
                       </div>
 
                       <div className="modal-footer">
-                        <button
+                        <Button
                           type="submit"
-                          className="btn btn-default btn-hover"
                           data-dismiss="modal"
                           onClick={onSubmit}
+                          variant={buttonVariants.green}
                           disabled={isDateRangeValid ? true : false}
                         >
                           Confirm
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-default btn-hover"
-                          data-dismiss="modal"
-                        >
+                        </Button>
+                        <Button type="button" data-dismiss="modal">
                           Cancel
-                        </button>
+                        </Button>
                       </div>
                     </form>
                   </div>
@@ -204,11 +195,17 @@ export const Details = () => {
               </div>
 
               {/* <!-- Modal --> */}
-              <div id="deleteModal" className="modal fade" role="dialog">
+              <div
+                id="deleteModal"
+                className="modal fade"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
                 <div className="modal-dialog">
                   {/* <!-- Modal content--> */}
                   <div className="modal-content">
                     <div className="modal-header">
+                      <h4 className="modal-title w-100">Delete Listing</h4>
                       <button
                         type="button"
                         className="close"
@@ -216,7 +213,6 @@ export const Details = () => {
                       >
                         &times;
                       </button>
-                      <h4 className="modal-title">Delete Listing</h4>
                     </div>
                     <div className="modal-body">
                       <p>
@@ -225,21 +221,21 @@ export const Details = () => {
                       </p>
                     </div>
                     <div className="modal-footer">
-                      <button
+                      <Button
                         type="button"
-                        className="btn btn-default btn-hover"
                         data-dismiss="modal"
                         onClick={deleteHandler}
+                        variant={buttonVariants.red}
                       >
                         Delete
-                      </button>
-                      <button
+                      </Button>
+                      <Button
                         type="button"
-                        className="btn btn-default btn-hover"
+                        className="btn btn-modal-cancel btn-hover"
                         data-dismiss="modal"
                       >
-                        Close
-                      </button>
+                        Cancel
+                      </Button>
                     </div>
                   </div>
                 </div>

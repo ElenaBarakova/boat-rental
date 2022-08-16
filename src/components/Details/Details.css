@@ -19,8 +19,8 @@ main {
   text-align: center;
 }
 
-.font-weight-bold-title {
-  text-align: right;
+.boat-text .font-weight-bold-title {
+  text-align: center;
 }
 
 .details .boat-img img {
@@ -42,21 +42,6 @@ main {
 }
 
 .details-btn .btn-edit {
-  border: none;
-  cursor: pointer;
-  outline: none;
-  font-size: 14px;
-  background-color: #3798b5;
-  padding: 0.8em 2em;
-  border-radius: 65px;
-  box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.438);
-  -webkit-transition: box-shadow 0.25s;
-  transition: box-shadow 0.25s;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  height: 40px;
-  text-decoration: none;
   margin-right: 30px;
 }
 
@@ -101,23 +86,36 @@ main {
   text-decoration: none;
 }
 
-.details-btn .btn-edit:hover,
-.details-btn .btn-delete:hover,
-.details-btn .btn-get-quote:hover,
-.details-btn .btn-default:hover {
+/* MODAL CSS */
+
+/* .btn-modal-confirm {
+  background-color: #83ab8f;
+  color: white;
+}
+.btn-modal-cancel {
+  background-color: #3798b5;
+  color: white;
+}
+.btn-modal-delete {
+  background-color: #bb7e7e;
+  color: white;
+}
+.btn-modal-confirm:hover,
+.btn-modal-cancel:hover,
+.btn-modal-delete:hover {
   box-shadow: 0 12px 24px rgba(128, 128, 128, 0.15);
   color: rgb(61, 106, 120);
   text-decoration: underline;
 }
 
-.details .modal-body {
-  font-size: 18px;
-  text-align: center;
+.calendar {
+  display: inline-block;
+  padding: 20px 20px;
 }
 
-.details .calendar {
-  display: inline-block;
-  padding: 0 40px;
+.modal-body {
+  font-size: 18px;
+  text-align: center;
 }
 
 .details .calendar label,
@@ -125,3 +123,7 @@ main {
   display: block;
   text-align: left;
 }
+
+.modal-header .modal-title {
+  text-align: center;
+} */
