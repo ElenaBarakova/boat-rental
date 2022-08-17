@@ -59,28 +59,32 @@ export const Details = () => {
               </p>
               <p id="description">{currentBoat.description}</p>
               <div className="details-btn">
-                {isOwner ? (
-                  <div>
-                    <Button to={`/details/${boatId}/edit`} className="btn-edit">
-                      EDIT
-                    </Button>
+                {auth._id &&
+                  (isOwner ? (
+                    <div>
+                      <Button
+                        to={`/details/${boatId}/edit`}
+                        className="btn-edit"
+                      >
+                        EDIT
+                      </Button>
+                      <Button
+                        data-toggle="modal"
+                        data-target="#deleteModal"
+                        variant={buttonVariants.red}
+                      >
+                        DELETE
+                      </Button>
+                    </div>
+                  ) : (
                     <Button
+                      type="button"
                       data-toggle="modal"
-                      data-target="#deleteModal"
-                      variant={buttonVariants.red}
+                      data-target="#quoteModal"
                     >
-                      DELETE
+                      GET A QUOTE
                     </Button>
-                  </div>
-                ) : (
-                  <Button
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#quoteModal"
-                  >
-                    GET A QUOTE
-                  </Button>
-                )}
+                  ))}
               </div>
               <div id="quoteModal" className="modal fade" aria-hidden="true">
                 <div className="modal-dialog">
