@@ -35,9 +35,7 @@ export const ModalQuote = ({ currentBoat }) => {
       endDate,
       status: "Pending",
     };
-    quoteService.create(quoteData, auth.accessToken).then((result) => {
-      console.log(result);
-    });
+    quoteService.create(quoteData, auth.accessToken);
 
     navigate("/my-profile");
   };

@@ -22,7 +22,7 @@ export const MyProfile = () => {
       .then((result) => {
         const sentQuotes = result.filter((quote) => quote.userId === auth._id);
         const receivedQuotes = result.filter(
-          (quote) => quote._ownerId !== auth._id
+          (quote) => quote.ownerEmail === auth.email
         );
         setSentQuotes(sentQuotes);
         setReceivedQuotes(receivedQuotes);
@@ -31,11 +31,8 @@ export const MyProfile = () => {
         setSentQuotes([]);
         setReceivedQuotes([]);
       });
-  }, [auth._id]);
+  }, [auth._id, auth.email]);
 
-  // quotesArray - we pass quotesArray because the function is
-  // generic and it needs to know which array it should manipulate - MY QUOTES or the RECEIVED quotes.
-  // When calling this function we will have this information, so we will just pass it to the function
   const changeStatusHandler = (
     quotes,
     setQuotesFn,
@@ -49,7 +46,6 @@ export const MyProfile = () => {
         const foundQuoteIndex = quotes.findIndex(
           (quote) => quote._id === result._id
         );
-        console.log(result);
 
         foundQuote.status = result.status;
         setQuotesFn((quotes) => [
@@ -58,8 +54,8 @@ export const MyProfile = () => {
           ...quotes.slice(foundQuoteIndex + 1),
         ]);
       })
-      .catch(() => {
-        console.log("error");
+      .catch((error) => {
+        console.error(error);
       });
   };
 

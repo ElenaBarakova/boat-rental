@@ -60,7 +60,6 @@ export const Edit = () => {
       ...currentErrors,
       [key]: value,
     }));
-    console.log(validationErrors);
   };
 
   const removeValidationErrors = (key) => {

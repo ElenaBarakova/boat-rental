@@ -19,7 +19,7 @@ export const logout = async (accessToken) => {
     });
     return response;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 

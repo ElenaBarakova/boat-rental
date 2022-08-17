@@ -36,8 +36,8 @@ export const Home = () => {
             <div className="row">
               {boats?.map((x) => {
                 return (
-                  <div className="col-4">
-                    <Boat boat={x} key={x._id} />
+                  <div className="col-4" key={x._id}>
+                    <Boat boat={x} />
                   </div>
                 );
               })}
