@@ -25,14 +25,16 @@ export const Create = () => {
     (inputName) => formRef.current?.[inputName].value
   );
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const boatDataForm = Object.fromEntries(new FormData(e.target));
     const boatData = { ...boatDataForm, ownerEmail: auth.email };
     boatService.create(boatData, auth.accessToken).then((result) => {
       createBoatListingHandler(result);
     });
-    navigate("/catalog");
+    await setTimeout(() => {
+      navigate("/catalog");
+    }, 500);
   };
 
   const addToValidationErrors = (key, value) => {

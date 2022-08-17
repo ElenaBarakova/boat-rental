@@ -12,6 +12,9 @@ export const Home = () => {
     boatService
       .getAll()
       .then((result) => {
+        if (result.length <= 3) {
+          return setBoats(result);
+        }
         const resultArray = result.slice(result.length - 3);
         setBoats(resultArray);
       })

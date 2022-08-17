@@ -9,9 +9,11 @@ export const ModalDelete = ({ currentBoat }) => {
   const { auth } = useContext(AuthContext);
   const { boatId } = useParams();
 
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
     boatService.del(boatId, auth.accessToken);
-    navigate("/catalog");
+    await setTimeout(() => {
+      navigate("/catalog");
+    }, 500);
   };
   return (
     <div className="modal-content">

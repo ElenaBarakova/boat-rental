@@ -19,7 +19,6 @@ export const create = (quoteData, accessToken) => {
     body: JSON.stringify({ ...quoteData }),
   }).then((res) => res.json());
 };
-
 export const statusChange = (quoteData, statusValue, accessToken) => {
   return fetch(`${baseUrl}/${quoteData._id}`, {
     method: "PUT",
