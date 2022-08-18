@@ -50,7 +50,8 @@
 
 .type-select,
 .search-name,
-.btn-go {
+.btn-go,
+.btn-clear {
   margin-left: 15px;
 }
 

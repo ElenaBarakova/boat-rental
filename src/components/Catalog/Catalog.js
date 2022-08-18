@@ -66,6 +66,11 @@ export const Catalog = () => {
     setFilteredBoats(resultBoats);
   };
 
+  const onClearHandler = (e) => {
+    e.preventDefault();
+    setFilteredBoats(boats);
+  };
+
   return (
     <section className="catalog">
       <h1>
@@ -101,6 +106,9 @@ export const Catalog = () => {
           </div>
           <Button className="btn-go" onClick={onSearchHandler}>
             GO
+          </Button>
+          <Button className="btn-clear" onClick={onClearHandler}>
+            CLEAR
           </Button>
         </form>
       </nav>
