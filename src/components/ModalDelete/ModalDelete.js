@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import * as boatService from "../../services/boatService";
+import { sleep } from "../../utils/utils";
 
 export const ModalDelete = ({ currentBoat }) => {
   const navigate = useNavigate();
@@ -11,9 +12,8 @@ export const ModalDelete = ({ currentBoat }) => {
 
   const deleteHandler = async () => {
     boatService.del(boatId, auth.accessToken);
-    await setTimeout(() => {
-      navigate("/catalog");
-    }, 500);
+    await sleep(250);
+    navigate("/catalog");
   };
   return (
     <div className="modal-content">

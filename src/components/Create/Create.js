@@ -12,6 +12,7 @@ import { formFields } from "../../constants/constants";
 import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../Button/Button";
+import { sleep } from "../../utils/utils";
 
 export const Create = () => {
   const { auth } = useContext(AuthContext);
@@ -32,9 +33,8 @@ export const Create = () => {
     boatService.create(boatData, auth.accessToken).then((result) => {
       createBoatListingHandler(result);
     });
-    await setTimeout(() => {
-      navigate("/catalog");
-    }, 500);
+    await sleep(250);
+    navigate("/catalog");
   };
 
   const addToValidationErrors = (key, value) => {

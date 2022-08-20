@@ -12,6 +12,7 @@ import {
 import { BoatContext } from "../../contexts/BoatContext";
 import * as boatService from "../../services/boatService";
 import Button from "../Button/Button";
+import { sleep } from "../../utils/utils";
 
 export const Edit = () => {
   const [currentBoat, setCurrentBoat] = useState({});
@@ -26,12 +27,13 @@ export const Edit = () => {
 
   const isValidationErrorsEmpty = !Object.values(validationErrors).length;
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const boatData = Object.fromEntries(new FormData(e.target));
     boatService.edit(boatData, boatId, auth.accessToken).then((result) => {
       createBoatListingHandler(result);
     });
+    await sleep(250);
     navigate(`/details/${boatId}`);
   };
 

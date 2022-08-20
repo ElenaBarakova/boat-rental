@@ -107,7 +107,11 @@ export const Catalog = () => {
           <Button className="btn-go" onClick={onSearchHandler}>
             GO
           </Button>
-          <Button className="btn-clear" onClick={onClearHandler}>
+          <Button
+            className="btn-clear"
+            data-testid="clear"
+            onClick={onClearHandler}
+          >
             CLEAR
           </Button>
         </form>
