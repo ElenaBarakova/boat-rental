@@ -9,3 +9,9 @@ export const formFields = {
   price: "price",
   description: "description",
 };
+
+export const quotesStatus = {
+  accepted: "Accepted",
+  rejected: "Rejected",
+  pending: "Pending",
+};

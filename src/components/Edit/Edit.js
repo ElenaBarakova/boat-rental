@@ -9,7 +9,6 @@ import {
   checkMinLength,
   checkUrl,
 } from "../../services/validationService";
-import { BoatContext } from "../../contexts/BoatContext";
 import * as boatService from "../../services/boatService";
 import Button from "../Button/Button";
 import { sleep } from "../../utils/utils";
@@ -20,7 +19,6 @@ export const Edit = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [areAllFormFieldsFilled, setAreAllFormFieldsFilled] = useState(false);
   const { auth } = useContext(AuthContext);
-  const { createBoatListingHandler } = useContext(BoatContext);
   const { boatId } = useParams();
   const formRef = useRef();
   const navigate = useNavigate();
@@ -30,9 +28,7 @@ export const Edit = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const boatData = Object.fromEntries(new FormData(e.target));
-    boatService.edit(boatData, boatId, auth.accessToken).then((result) => {
-      createBoatListingHandler(result);
-    });
+    await boatService.edit(boatData, boatId, auth.accessToken);
     await sleep(250);
     navigate(`/details/${boatId}`);
   };

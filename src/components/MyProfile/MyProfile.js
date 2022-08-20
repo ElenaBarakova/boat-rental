@@ -2,14 +2,11 @@ import "./MyProfile.css";
 
 import * as quoteService from "../../services/quoteService";
 import { AuthContext } from "../../contexts/AuthContext";
-import { ReceivedTableRow } from "../Table/ReceivedTableRow";
-import { SentTableRow } from "../Table/SentTableRow";
+import { TableRow } from "../Table/TableRow";
 import { EmptyTableRow } from "../Table/EmptyTableRow";
 
 import { useContext, useState, useEffect } from "react";
-
-const reject = "Rejected";
-const accept = "Accepted";
+import { quotesStatus } from "../../constants/constants";
 
 export const MyProfile = () => {
   const { auth } = useContext(AuthContext);
@@ -86,7 +83,7 @@ export const MyProfile = () => {
             {sentQuotes.length > 0 ? (
               sentQuotes?.map((quote) => {
                 return (
-                  <SentTableRow
+                  <TableRow
                     quote={quote}
                     key={quote._id}
                     onReject={() =>
@@ -94,7 +91,7 @@ export const MyProfile = () => {
                         sentQuotes,
                         setSentQuotes,
                         quote,
-                        reject
+                        quotesStatus.rejected
                       )
                     }
                   />
@@ -123,7 +120,7 @@ export const MyProfile = () => {
             {receivedQuotes.length > 0 ? (
               receivedQuotes.map((quote) => {
                 return (
-                  <ReceivedTableRow
+                  <TableRow
                     quote={quote}
                     key={quote._id}
                     onReject={() =>
@@ -131,7 +128,7 @@ export const MyProfile = () => {
                         receivedQuotes,
                         setReceivedQuotes,
                         quote,
-                        reject
+                        quotesStatus.rejected
                       )
                     }
                     onAccept={() =>
@@ -139,9 +136,10 @@ export const MyProfile = () => {
                         receivedQuotes,
                         setReceivedQuotes,
                         quote,
-                        accept
+                        quotesStatus.accepted
                       )
                     }
+                    showReceived
                   />
                 );
               })

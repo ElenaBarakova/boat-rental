@@ -4,6 +4,8 @@ import { useState, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
 import * as quoteService from "../../services/quoteService";
+import { sleep } from "../../utils/utils";
+import { quotesStatus } from "../../constants/constants";
 
 export const ModalQuote = ({ currentBoat }) => {
   const [startDate, setStartDate] = useState("yyyy-mm-dd");
@@ -18,7 +20,7 @@ export const ModalQuote = ({ currentBoat }) => {
   const endDateCheck = new Date(endDate).getTime();
   const isDateRangeValid = endDateCheck < startDateCheck;
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
 
     const startDate = formRef.current?.start.value;
@@ -33,10 +35,10 @@ export const ModalQuote = ({ currentBoat }) => {
       ownerEmail: currentBoat.ownerEmail,
       startDate,
       endDate,
-      status: "Pending",
+      status: quotesStatus.pending,
     };
     quoteService.create(quoteData, auth.accessToken);
-
+    await sleep(250);
     navigate("/my-profile");
   };
 

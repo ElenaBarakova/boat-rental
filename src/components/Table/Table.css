@@ -55,3 +55,10 @@ main {
   background-image: none;
   color: #ccc;
 }
+
+.table .status-accepted {
+  color: green;
+}
+.table .status-rejected {
+  color: red;
+}

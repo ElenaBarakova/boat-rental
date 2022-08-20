@@ -2,7 +2,6 @@ import "./Create.css";
 
 import * as boatService from "../../services/boatService";
 import { AuthContext } from "../../contexts/AuthContext";
-import { BoatContext } from "../../contexts/BoatContext";
 import {
   checkMaxLength,
   checkMinLength,
@@ -16,7 +15,6 @@ import { sleep } from "../../utils/utils";
 
 export const Create = () => {
   const { auth } = useContext(AuthContext);
-  const { createBoatListingHandler } = useContext(BoatContext);
   const [validationErrors, setValidationErrors] = useState({});
   const formRef = useRef();
   const navigate = useNavigate();
@@ -30,9 +28,7 @@ export const Create = () => {
     e.preventDefault();
     const boatDataForm = Object.fromEntries(new FormData(e.target));
     const boatData = { ...boatDataForm, ownerEmail: auth.email };
-    boatService.create(boatData, auth.accessToken).then((result) => {
-      createBoatListingHandler(result);
-    });
+    await boatService.create(boatData, auth.accessToken);
     await sleep(250);
     navigate("/catalog");
   };
