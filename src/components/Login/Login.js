@@ -21,7 +21,6 @@ export const Login = () => {
 
     const { email, password } = Object.fromEntries(new FormData(e.target));
 
-    //ERROR HANDLING
     authService.login(email, password).then((authResponse) => {
       if (
         authResponse.code >= 400 &&

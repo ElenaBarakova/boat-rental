@@ -2,8 +2,7 @@ import "./MyProfile.css";
 
 import * as quoteService from "../../services/quoteService";
 import { AuthContext } from "../../contexts/AuthContext";
-import { TableRow } from "../Table/TableRow";
-import { EmptyTableRow } from "../Table/EmptyTableRow";
+import { Table } from "../Table/Table";
 
 import { useContext, useState, useEffect } from "react";
 import { quotesStatus } from "../../constants/constants";
@@ -67,87 +66,39 @@ export const MyProfile = () => {
         </div>
 
         <h4 className="quotes-title">My Quotes</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Boat Name</th>
-              <th scope="col">Boat Type</th>
-              <th scope="col">Start date</th>
-              <th scope="col">End date</th>
-              <th scope="col">To (email):</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {sentQuotes.length > 0 ? (
-              sentQuotes?.map((quote) => {
-                return (
-                  <TableRow
-                    quote={quote}
-                    key={quote._id}
-                    onReject={() =>
-                      changeStatusHandler(
-                        sentQuotes,
-                        setSentQuotes,
-                        quote,
-                        quotesStatus.rejected
-                      )
-                    }
-                  />
-                );
-              })
-            ) : (
-              <EmptyTableRow />
-            )}
-          </tbody>
-        </table>
+        <Table
+          quotes={sentQuotes}
+          onReject={(quote) =>
+            changeStatusHandler(
+              sentQuotes,
+              setSentQuotes,
+              quote,
+              quotesStatus.rejected
+            )
+          }
+        />
 
         <h4 className="quotes-title">Quotes For My Listings</h4>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Boat Name</th>
-              <th scope="col">Boat Type</th>
-              <th scope="col">Start date</th>
-              <th scope="col">End date</th>
-              <th scope="col">From (email):</th>
-              <th scope="col">Status</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {receivedQuotes.length > 0 ? (
-              receivedQuotes.map((quote) => {
-                return (
-                  <TableRow
-                    quote={quote}
-                    key={quote._id}
-                    onReject={() =>
-                      changeStatusHandler(
-                        receivedQuotes,
-                        setReceivedQuotes,
-                        quote,
-                        quotesStatus.rejected
-                      )
-                    }
-                    onAccept={() =>
-                      changeStatusHandler(
-                        receivedQuotes,
-                        setReceivedQuotes,
-                        quote,
-                        quotesStatus.accepted
-                      )
-                    }
-                    showReceived
-                  />
-                );
-              })
-            ) : (
-              <EmptyTableRow />
-            )}
-          </tbody>
-        </table>
+        <Table
+          quotes={receivedQuotes}
+          onReject={(quote) =>
+            changeStatusHandler(
+              receivedQuotes,
+              setReceivedQuotes,
+              quote,
+              quotesStatus.rejected
+            )
+          }
+          onAccept={(quote) =>
+            changeStatusHandler(
+              receivedQuotes,
+              setReceivedQuotes,
+              quote,
+              quotesStatus.accepted
+            )
+          }
+          showReceived
+        />
       </section>
     </>
   );
