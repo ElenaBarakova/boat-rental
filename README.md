@@ -42,6 +42,19 @@ npm run start
 - Get quotes for other users' listings
 - Approve/Reject quotes for user's own listings
 
+# Architecture overview
+The application code is devided into the following logical chunks:
+
+- App.js - app initialization and routes 
+- components - consists of all ui components 
+- constants
+- contexts - currently used for AuthContext (user authentication)
+- hooks - consists of custom hook for using the local storage
+- routeGuards - guard that ensures that the user has access to particular views
+- services - used for API requests and validation logic
+- utils - reusable common utilities
+
+
 # Main views
 
 ### Landing page
