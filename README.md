@@ -100,3 +100,9 @@ Owner of the current listing can edit the information about it. Form inputs are 
 
 Every user has a my profile page, where they can see basic user information and information about the quotes concerning the current user (quotes that he made and quotes that were made for his listings). The quotes are separated into two tables, where you have the option to accept or reject a quote.
 ![image](https://user-images.githubusercontent.com/103183759/185078383-12aaa971-4b15-4753-b5b4-f87ad40424d0.png)
+
+### Error page
+
+When you enter invalid route
+![image](https://user-images.githubusercontent.com/103183759/186136159-2e215c8b-b85e-4dc6-9e2b-ca14a1042e77.png)
+
