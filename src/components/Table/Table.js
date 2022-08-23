@@ -27,7 +27,7 @@ export const Table = ({ quotes, onReject, onAccept, showReceived }) => {
         {quotes.length > 0 ? (
           quotes?.map((quote) => {
             return (
-              <tr>
+              <tr key={quote._id}>
                 <td>{quote.name}</td>
                 <td>{quote.type}</td>
                 <td>{quote.startDate}</td>

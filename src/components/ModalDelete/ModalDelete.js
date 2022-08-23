@@ -4,6 +4,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 import * as boatService from "../../services/boatService";
 import { sleep } from "../../utils/utils";
+import { Modal } from "../Modal/Modal";
 
 export const ModalDelete = ({ currentBoat }) => {
   const navigate = useNavigate();
@@ -16,19 +17,14 @@ export const ModalDelete = ({ currentBoat }) => {
     navigate("/catalog");
   };
   return (
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title w-100">Delete Listing</h4>
-        <button type="button" className="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
-      <div className="modal-body">
+    <Modal
+      modaTitle="Delete Listing"
+      modalBody={
         <p>
           Are you sure you want to delete {currentBoat.type}: {currentBoat.name}
         </p>
-      </div>
-      <div className="modal-footer">
+      }
+      modalSubmitButton={
         <Button
           type="button"
           data-dismiss="modal"
@@ -37,14 +33,7 @@ export const ModalDelete = ({ currentBoat }) => {
         >
           Delete
         </Button>
-        <Button
-          type="button"
-          className="btn btn-modal-cancel btn-hover"
-          data-dismiss="modal"
-        >
-          Cancel
-        </Button>
-      </div>
-    </div>
+      }
+    />
   );
 };

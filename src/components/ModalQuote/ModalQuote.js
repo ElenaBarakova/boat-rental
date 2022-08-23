@@ -6,6 +6,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import * as quoteService from "../../services/quoteService";
 import { sleep } from "../../utils/utils";
 import { quotesStatus } from "../../constants/constants";
+import { Modal } from "../Modal/Modal";
 
 export const ModalQuote = ({ currentBoat }) => {
   const [startDate, setStartDate] = useState("yyyy-mm-dd");
@@ -25,6 +26,8 @@ export const ModalQuote = ({ currentBoat }) => {
 
     const startDate = formRef.current?.start.value;
     const endDate = formRef.current?.end.value;
+    console.log(startDate);
+    console.log(endDate);
 
     const quoteData = {
       name: currentBoat.name,
@@ -43,16 +46,10 @@ export const ModalQuote = ({ currentBoat }) => {
   };
 
   return (
-    <div className="modal-content">
-      <div className="modal-header">
-        <h4 className="modal-title w-100">Choose dates</h4>
-
-        <button type="button" className="close" data-dismiss="modal">
-          &times;
-        </button>
-      </div>
-      <form method="POST" ref={formRef}>
-        <div className="modal-body">
+    <Modal
+      modaTitle="Choose dates"
+      modalBody={
+        <form method="POST" ref={formRef}>
           <div className="calendar">
             <label htmlFor="start">Start date:</label>
             <input
@@ -85,23 +82,19 @@ export const ModalQuote = ({ currentBoat }) => {
               End date must be after start date
             </div>
           )}
-        </div>
-
-        <div className="modal-footer">
-          <Button
-            type="submit"
-            data-dismiss="modal"
-            onClick={onSubmit}
-            variant={buttonVariants.green}
-            disabled={isDateRangeValid ? true : false}
-          >
-            Confirm
-          </Button>
-          <Button type="button" data-dismiss="modal">
-            Cancel
-          </Button>
-        </div>
-      </form>
-    </div>
+        </form>
+      }
+      modalSubmitButton={
+        <Button
+          type="submit"
+          data-dismiss="modal"
+          onClick={onSubmit}
+          variant={buttonVariants.green}
+          disabled={isDateRangeValid ? true : false}
+        >
+          Confirm
+        </Button>
+      }
+    />
   );
 };
