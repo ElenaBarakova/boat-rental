@@ -1,4 +1,4 @@
-import errorSign from "../../img/b8fb705699100d965d1ede440f63bd35.jpg";
+import errorSign from "../../img/284270.png";
 import "./Error.css";
 
 export const Error = () => {

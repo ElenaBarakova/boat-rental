@@ -86,17 +86,10 @@ export const Details = () => {
                     </Button>
                   ))}
               </div>
-              <div id="quoteModal" className="modal fade" aria-hidden="true">
-                <div className="modal-dialog">
-                  <ModalQuote currentBoat={currentBoat}></ModalQuote>
-                </div>
-              </div>
 
-              <div id="deleteModal" className="modal fade" aria-hidden="true">
-                <div className="modal-dialog">
-                  <ModalDelete currentBoat={currentBoat}></ModalDelete>
-                </div>
-              </div>
+              <ModalQuote currentBoat={currentBoat}></ModalQuote>
+
+              <ModalDelete currentBoat={currentBoat}></ModalDelete>
             </div>
           </div>
         </div>

@@ -47,43 +47,8 @@ export const ModalQuote = ({ currentBoat }) => {
 
   return (
     <Modal
+      modalId="quoteModal"
       modaTitle="Choose dates"
-      modalBody={
-        <form method="POST" ref={formRef}>
-          <div className="calendar">
-            <label htmlFor="start">Start date:</label>
-            <input
-              type="date"
-              id="start"
-              name="start"
-              value={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value);
-              }}
-            />
-          </div>
-          <div className="calendar">
-            <label htmlFor="end">End date:</label>
-            <input
-              type="date"
-              id="end"
-              name="end"
-              value={endDate}
-              onChange={(e) => {
-                setEndDate(e.target.value);
-              }}
-            />
-          </div>
-          {isDateRangeValid && (
-            <div
-              id="validationServerUsernameFeedback"
-              className="invalid-field"
-            >
-              End date must be after start date
-            </div>
-          )}
-        </form>
-      }
       modalSubmitButton={
         <Button
           type="submit"
@@ -95,6 +60,38 @@ export const ModalQuote = ({ currentBoat }) => {
           Confirm
         </Button>
       }
-    />
+    >
+      <form method="POST" ref={formRef}>
+        <div className="calendar">
+          <label htmlFor="start">Start date:</label>
+          <input
+            type="date"
+            id="start"
+            name="start"
+            value={startDate}
+            onChange={(e) => {
+              setStartDate(e.target.value);
+            }}
+          />
+        </div>
+        <div className="calendar">
+          <label htmlFor="end">End date:</label>
+          <input
+            type="date"
+            id="end"
+            name="end"
+            value={endDate}
+            onChange={(e) => {
+              setEndDate(e.target.value);
+            }}
+          />
+        </div>
+        {isDateRangeValid && (
+          <div id="validationServerUsernameFeedback" className="invalid-field">
+            End date must be after start date
+          </div>
+        )}
+      </form>
+    </Modal>
   );
 };

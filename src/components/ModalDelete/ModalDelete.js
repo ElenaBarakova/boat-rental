@@ -18,12 +18,8 @@ export const ModalDelete = ({ currentBoat }) => {
   };
   return (
     <Modal
+      modalId="deleteModal"
       modaTitle="Delete Listing"
-      modalBody={
-        <p>
-          Are you sure you want to delete {currentBoat.type}: {currentBoat.name}
-        </p>
-      }
       modalSubmitButton={
         <Button
           type="button"
@@ -34,6 +30,10 @@ export const ModalDelete = ({ currentBoat }) => {
           Delete
         </Button>
       }
-    />
+    >
+      <p>
+        Are you sure you want to delete {currentBoat.type}: {currentBoat.name}
+      </p>
+    </Modal>
   );
 };

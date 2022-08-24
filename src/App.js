@@ -55,7 +55,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/details/:boatId" element={<Details />} />
-            <Route path="/error" element={<Error />} />
+            <Route path="/*" element={<Error />} />
           </Routes>
         </main>
       </>
