@@ -44,11 +44,23 @@ export const Login = () => {
         </div>
       )}
       <form method="POST" onSubmit={onSubmit}>
-        <label>Email</label>
-        <input type="text" name="email" placeholder="Email.." />
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Password.." />
-        <Button type="submit" className="btn-login">
+        <label htmlFor="email">Email</label>
+        <input
+          id="email"
+          type="text"
+          name="email"
+          placeholder="Email.."
+          aria-label="email"
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          placeholder="Password.."
+          aria-label="password"
+        />
+        <Button type="submit" className="btn-login" data-testid="loginBtn">
           LOGIN
         </Button>
       </form>
